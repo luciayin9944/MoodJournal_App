@@ -1,14 +1,19 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+# app.py
+from flask import Flask, request, jsonify, make_response
+from flask_restful import Api, Resource
+from config import db, bcrypt, jwt, Config
+from flask_cors import CORS
 from models import *  
 
-app = Flask(__name__)
-app.config.from_pyfile('config.py')
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object(Config)
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+    # Initialize extensions
+    CORS(app)
+    db.init_app(app)
+    bcrypt.init_app(app)
+    jwt.init_app(app)
+    api = Api(app)
 
-
-if __name__ == "__main__":
-    app.run(debug=True)
+    return app
