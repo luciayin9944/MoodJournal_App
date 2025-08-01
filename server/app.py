@@ -20,9 +20,9 @@ def create_app():
     api = Api(app)
 
     # API resources
-    api.add_resource(Signup, './signup')
-    api.add_resource(WhoAmI, './me')
-    api.add_resource(Login, './login')
+    api.add_resource(Signup, '/signup')
+    api.add_resource(WhoAmI, '/me')
+    api.add_resource(Login, '/login')
 
     return app
 
@@ -33,18 +33,35 @@ class Signup(Resource):
         username = data.get('username')
         email = data.get('email')
         password = data.get('password')
-        if not username or not email or not password:
-            return {'errors': ['Missing usernamer or email or password']}, 400
-        
-        user = User(username=username)
-        user.password_hash = password
-        user.email = email
+        password_confirmation = data.get('password_confirmation')
+        errors = []
 
+        #validations
+        if not username or len(username) < 3:
+            errors.append("Username must be at least 3 characters")
+        if not email or '@' not in email:
+            errors.append("Invalid email")
+        if not password or len(password) < 6:
+            errors.append("Password must be at least 6 characters")
+        if password != password_confirmation:
+            errors.append("Passwords do not match")
+
+        if errors:
+            return jsonify({'errors': errors}), 400
+        
+        new_user = User(username=username)
+        new_user.email = email
+        new_user.password_hash = password
+        
         try:
-            db.session.add(user)
+            db.session.add(new_user)
             db.session.commit()
-            access_token = create_access_token(identity=str(user.id))
-            response = make_response(jsonify(token=access_token, user=UserSchema().dump(user)), 200)
+            access_token = create_access_token(identity=str(new_user.id))
+            response = make_response(jsonify({
+                'token': access_token,
+                'user': UserSchema().dump(new_user),
+                'message': 'Signup successful!'
+            }), 200)
             return response
         except IntegrityError:
             db.session.rollback()
