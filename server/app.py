@@ -21,8 +21,8 @@ def create_app():
 
     # API resources
     api.add_resource(Signup, '/signup')
-    api.add_resource(WhoAmI, '/me')
     api.add_resource(Login, '/login')
+    api.add_resource(WhoAmI, '/me')
 
     return app
 
@@ -87,7 +87,7 @@ class Login(Resource):
 
         user = User.query.filter_by(email=email).first()
 
-        if user and user.autherticate(password):
+        if user and user.authenticate(password):
             access_token = create_access_token(identity=str(user.id))
             response = make_response(jsonify(token=access_token, user=UserSchema().dump(user)), 200)
             return response

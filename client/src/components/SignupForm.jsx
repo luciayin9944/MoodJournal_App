@@ -5,7 +5,7 @@ import { Box, TextInput, PasswordInput, Paper, Group, Button, Stack } from '@man
 import { useForm } from '@mantine/form';
 import axios from 'axios';
 
-export default function SignupForm() {
+export default function SignupForm({ onLogin }) {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState([]);
 
@@ -39,9 +39,8 @@ export default function SignupForm() {
             password_confirmation: values.confirmPassword,
         });
 
-        const { user } = response.data;
-        console.log('Signed up user:', user);
-
+        const { token, user } = response.data;
+        onLogin(token, user);
         setIsLoading(false);
 
     } catch (error) {
@@ -56,55 +55,46 @@ export default function SignupForm() {
   }
 
   return (
-    <Box
-      style={{
-        height: '100vh',           
-        display: 'flex',           
-        alignItems: 'center',      
-        justifyContent: 'center',  
-      }}
-    >
-      <Paper shadow="md" radius="md" p="xl" withBorder maw={400} w="100%">
-        <form onSubmit={form.onSubmit(handleSubmit)}>
-          <Stack>
-            <TextInput
-                label="Username"
-                placeholder="your_username"
-                {...form.getInputProps('username')}
-                required
-            />
-            <TextInput
-                label="Email"
-                placeholder="your@email.com"
-                {...form.getInputProps('email')}
-                required
-            />
-            <PasswordInput
-                label="Password"
-                placeholder="Your password"
-                {...form.getInputProps('password')}
-                required
-            />
-            <PasswordInput
-                label="Confirm Password"
-                placeholder="Re-enter password"
-                {...form.getInputProps('confirmPassword')}
-                required
-            />
-            </Stack>
+    <Paper shadow="md" radius="md" p="xl" withBorder maw={400} w="100%">
+      <form onSubmit={form.onSubmit(handleSubmit)}>
+        <Stack>
+          <TextInput
+              label="Username"
+              placeholder="your_username"
+              {...form.getInputProps('username')}
+              required
+          />
+          <TextInput
+              label="Email"
+              placeholder="your@email.com"
+              {...form.getInputProps('email')}
+              required
+          />
+          <PasswordInput
+              label="Password"
+              placeholder="Your password"
+              {...form.getInputProps('password')}
+              required
+          />
+          <PasswordInput
+              label="Confirm Password"
+              placeholder="Re-enter password"
+              {...form.getInputProps('confirmPassword')}
+              required
+          />
+          </Stack>
 
-            <Group justify="flex-end" mt="md">
-              <Button type="submit" loading={isLoading}>Sign Up</Button>
-            </Group>
+          <Group justify="flex-end" mt="md">
+            <Button type="submit" loading={isLoading}>Sign Up</Button>
+          </Group>
 
-            {errors.length > 0 && (
-              <ul style={{ color: 'red' }}>
-                {errors.map((err, i) => <li key={i}>{err}</li>)}
-              </ul>
-            )}
-        </form>
-      </Paper>
-    </Box>
+          {errors.length > 0 && (
+            <ul style={{ color: 'red' }}>
+              {errors.map((err, i) => <li key={i}>{err}</li>)}
+            </ul>
+          )}
+      </form>
+    </Paper>
   );
 }
 
