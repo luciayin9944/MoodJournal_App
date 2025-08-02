@@ -79,7 +79,7 @@ class JournalEntry(db.Model):
     def validate_mood_tag(self, key, value):
         allowed = {
             'Happy', 'Joyful', 'Excited', 'Relaxed', 'Calm','Sad', 'Angry', 'Anxious', 'Stressed', 'Lonely',
-            'Tired', 'Overwhelmed', 'Bored', 'Disappointed', 'Nervous', 'Other'
+            'Productive', 'Tired', 'Overwhelmed', 'Bored', 'Disappointed', 'Nervous', 'Other'
         }
         if value not in allowed:
             raise ValueError(f"Invalid mood tag: {value}")

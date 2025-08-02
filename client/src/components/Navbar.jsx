@@ -26,7 +26,7 @@ export default function Navbar() {
         size="md"
         fullWidth
       >
-        2
+        Journal
       </Button>
       <Button
         variant="outline"
