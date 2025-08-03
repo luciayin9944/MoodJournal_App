@@ -130,7 +130,7 @@ class NewEntry(Resource):
         
         iso_year, iso_week, _ = entry_date.isocalendar()
 
-        week_journal = Journal.query.filter_by(id=journal_id,user_id=curr_user_id).first()
+        week_journal = Journal.query.filter_by(user_id=curr_user_id, year=iso_year, week_number=iso_week).first()
         if not week_journal:
             ## add new week_journal record to Journal table
             week_journal = Journal(user_id=curr_user_id, year=iso_year,week_number=iso_week)
@@ -139,7 +139,7 @@ class NewEntry(Resource):
         
         ## add new entry to JournalEntry table
         new_entry = JournalEntry(
-            # journal_id = week_journal.id, 
+            journal_id = week_journal.id, 
             entry_date = entry_date,
             notes = data.get("notes"),
             mood_score = data.get("mood_score"),
@@ -233,18 +233,18 @@ class TodayEntry(Resource):
     @jwt_required()
     def get(self):
         curr_user_id = get_jwt_identity()
-        today = date.today()
+        today_str = date.today().isoformat()
 
         today_entry = (
             db.session.query(JournalEntry)
             .join(Journal)
             .filter(Journal.user_id==curr_user_id)
-            .filter(JournalEntry.entry_date==today)
+            .filter(JournalEntry.entry_date==today_str)
             .first()
         )
 
         if not today_entry:
-            return {"message": "No journal for today."}, 404
+            return {"message": "No journal found for today."}, 404
 
         return JournalEntrySchema().dump(today_entry), 200
 

@@ -1,8 +1,11 @@
 // Navbar.jsx
 
 import { Stack, Button } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
+  const navigate = useNavigate();
+
   return (
     <Stack
       h={200}
@@ -16,7 +19,7 @@ export default function Navbar() {
         variant="outline"
         color="grey"
         size="md"
-        fullWidth
+        onClick={() => navigate('/dashboard')}
       >
         Dashboard
       </Button>
@@ -24,9 +27,9 @@ export default function Navbar() {
         variant="outline"
         color="grey"
         size="md"
-        fullWidth
+        onClick={() => navigate('/entries/today')}
       >
-        Journal
+        TodayJournal
       </Button>
       <Button
         variant="outline"

@@ -9,6 +9,8 @@ export default defineConfig({
       '/me': 'http://localhost:5000',
       '/signup': 'http://localhost:5000',
       '/login': 'http://localhost:5000',
+      '/journals': 'http://localhost:5000',
+      '/entries': 'http://localhost:5000',
     }
   }
 })

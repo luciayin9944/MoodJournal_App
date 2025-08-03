@@ -8,6 +8,7 @@ import Login from "./pages/Login.jsx";
 import Dashboard from "./pages/DashBoard.jsx";
 import Header from "./components/Header.jsx";
 import Navbar from "./components/Navbar.jsx";
+import TodayJournal from "./pages/TodayJournal.jsx";
 import axios from 'axios';
 
 
@@ -57,6 +58,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Login onLogin={onLogin} />} />
           <Route path="/dashboard" element={<Dashboard user={user} />} />
+          <Route path="/entries/today" element={<TodayJournal />} />
         </Routes>
       </AppShell.Main>
     </AppShell>
