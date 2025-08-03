@@ -35,9 +35,9 @@ export default function Navbar() {
         variant="outline"
         color="grey"
         size="md"
-        fullWidth
+        onClick={() => navigate('/journals')}
       >
-        3
+        Journals
       </Button>
     </Stack>
   );

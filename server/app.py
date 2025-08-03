@@ -28,7 +28,7 @@ def create_app():
 
     # Journal (weekly)
     api.add_resource(JournalList, '/journals')  # GET list paginated
-    api.add_resource(JournalWeek, '/journals/week/<int:year>/<int:week_number>')  # GET entries in week
+    api.add_resource(JournalWeek, '/journals/<int:year>/<int:week_number>')  # GET entries in week
 
     # Entry (daily)
     api.add_resource(NewEntry, '/entries')  # POST new, GET by entry_id
@@ -261,6 +261,7 @@ class JournalWeek(Resource):
             return {"message": "No journal found for this week."}, 404
         
         entries = JournalEntry.query.filter_by(journal_id=week_journal.id).order_by(JournalEntry.entry_date.asc()).all()
+        print(f"Looking for entries in year={year}, week={week_number} for user {curr_user_id}")
         return jsonify(JournalEntrySchema(many=True).dump(entries))
     
 

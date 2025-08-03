@@ -10,6 +10,7 @@ import Header from "./components/Header.jsx";
 import Navbar from "./components/Navbar.jsx";
 import TodayJournal from "./pages/TodayJournal.jsx";
 import axios from 'axios';
+import JournalList from "./pages/JournalList.jsx";
 
 
 export default function App() {
@@ -59,6 +60,7 @@ export default function App() {
           <Route path="/" element={<Login onLogin={onLogin} />} />
           <Route path="/dashboard" element={<Dashboard user={user} />} />
           <Route path="/entries/today" element={<TodayJournal />} />
+          <Route path="/journals" element={<JournalList />} />
         </Routes>
       </AppShell.Main>
     </AppShell>
