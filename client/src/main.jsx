@@ -20,12 +20,12 @@ const theme= createTheme({
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
+    <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
+      <BrowserRouter>
         <App />
-      </MantineProvider>
-    </BrowserRouter>
-  </StrictMode>,
+      </BrowserRouter>
+    </MantineProvider>
+  </StrictMode>
 )
 
 

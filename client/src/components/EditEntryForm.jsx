@@ -2,6 +2,12 @@ import { useState } from 'react';
 import { Textarea, Button, NumberInput, Select, Stack, Notification } from '@mantine/core';
 import axios from 'axios';
 
+const moodTags = [
+    'Happy', 'Joyful', 'Excited', 'Relaxed', 'Calm',
+    'Sad', 'Angry', 'Anxious', 'Stressed', 'Lonely','Productive', 
+    'Tired', 'Overwhelmed', 'Bored', 'Disappointed','Nervous', 'Other'
+];
+
 export default function EditEntryForm({ entry, onUpdate }) {
   const [moodScore, setMoodScore] = useState(entry.mood_score);
   const [moodTag, setMoodTag] = useState(entry.mood_tag);
@@ -9,6 +15,7 @@ export default function EditEntryForm({ entry, onUpdate }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  
   const handleUpdate = async () => {
     setLoading(true);
     setError(null);
@@ -50,7 +57,7 @@ export default function EditEntryForm({ entry, onUpdate }) {
 
       <Select
         label="Mood Tag"
-        data={['Happy', 'Sad', 'Anxious', 'Calm', 'Excited']}
+        data={moodTags}
         value={moodTag}
         onChange={setMoodTag}
         placeholder="Select your mood"
