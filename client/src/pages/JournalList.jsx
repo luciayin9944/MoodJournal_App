@@ -7,7 +7,10 @@ import { Box, Title, Text, Stack, Button, Loader, Collapse, Flex, Pagination, Co
 import WeekEntriesGroup from '../components/WeekEntriesGroup';
 import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
+import weekOfYear from 'dayjs/plugin/weekOfYear';
+
 dayjs.extend(isoWeek);
+dayjs.extend(weekOfYear);
 
 export default function JournalList() {
   const [journals, setJournals] = useState([]);
@@ -50,10 +53,15 @@ export default function JournalList() {
   const currentWeekJournal = journals.find(j => j.year === currentYear && j.week_number === currentWeek);
   const pastJournals = journals.filter(j => !(j.year === currentYear && j.week_number === currentWeek));
 
+  const startOfWeek = dayjs().year(currentYear).isoWeek(currentWeek).startOf('isoWeek');
+  const endOfWeek = startOfWeek.endOf('isoWeek');
+  const dateRangeStr = `${startOfWeek.format('MMMM D, YYYY')} - ${endOfWeek.format('MMMM D, YYYY')}`;
+
   return (
     <Container>
-      <Box mt="lg" mb="xl">
-        <Title order={2}>Current Week's Journals</Title>
+      <Box mt="lg" mb={60}>
+        <Title order={2} mt={60} mb={30} ta="center">Current Week's Journals</Title>
+        <Text ta="center" mb={30}>{dateRangeStr}</Text>
         {currentWeekJournal ? (
             <WeekEntriesGroup
                 year={currentYear}
@@ -66,14 +74,14 @@ export default function JournalList() {
       </Box>
 
       <Box mt="lg" mb="xl">
-        <Title order={2} mt="xl">Past Weeks</Title>
+        <Title order={2} mt={100} mb={30} ta="center">Past Weeks</Title>
         <Stack>
             {pastJournals.map(journal => {
-            const weekKey = `${journal.year}-W${journal.week_number}`;
-            const startOfWeek = dayjs().year(journal.year).isoWeek(journal.week_number).startOf('isoWeek');
-            const endOfWeek = startOfWeek.endOf('isoWeek');
+                const weekKey = `${journal.year}-W${journal.week_number}`;
+                const startOfWeek = dayjs().year(journal.year).week(journal.week_number).startOf('isoWeek');
+                const endOfWeek = startOfWeek.endOf('isoWeek');
 
-            const dateRangeStr = `${startOfWeek.format('MMMM D, YYYY')} - ${endOfWeek.format('MMMM D, YYYY')}`;
+                const dateRangeStr = `${startOfWeek.format('MMMM D, YYYY')} - ${endOfWeek.format('MMMM D, YYYY')}`;   
                 
             return (
                 <Box>
