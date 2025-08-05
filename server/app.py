@@ -36,8 +36,9 @@ def create_app():
     api.add_resource(Entry, '/entries/<int:entry_id>')  # PATCH, DELETE
     api.add_resource(TodayEntry, '/entries/today')  # GET today's entry
 
-    # Suggestion
+    # Summary
     api.add_resource(AiSuggestion, '/journals/<int:year>/<int:week_number>/suggestion')
+    api.add_resource(WeeklyAnalysis, '/journals/<int:year>/<int:week_number>/analysis')
 
     return app
 
@@ -265,7 +266,7 @@ class JournalWeek(Resource):
             return {"message": "No journal found for this week."}, 404
         
         entries = JournalEntry.query.filter_by(journal_id=week_journal.id).order_by(JournalEntry.entry_date.asc()).all()
-        print(f"Looking for entries in year={year}, week={week_number} for user {curr_user_id}")
+        # print(f"Looking for entries in year={year}, week={week_number} for user {curr_user_id}")
         return jsonify(JournalEntrySchema(many=True).dump(entries))
     
 
@@ -294,6 +295,7 @@ class JournalList(Resource):
         })
     
 
+### OpenAi API
 import os
 import json
 from dotenv import load_dotenv
@@ -411,6 +413,31 @@ class AiSuggestion(Resource):
 
 
 
+
+class WeeklyAnalysis(Resource):
+    @jwt_required()
+    def get(self, year, week_number):
+        curr_user_id = get_jwt_identity()
+
+        week_journal = Journal.query.filter_by(user_id=curr_user_id, year=year, week_number=week_number).first()
+
+        if not week_journal:
+            return {"message": "No journal found for this week."}, 404
+        
+        entries = JournalEntry.query.filter_by(journal_id=week_journal.id).order_by(JournalEntry.entry_date.asc()).all()
+    
+        data = [
+            {
+                "entry_date": entry.entry_date.isoformat(),
+                "mood_score": entry.mood_score,
+                "mood_tag": entry.mood_tag,
+                "notes": entry.notes
+            }
+            for entry in entries
+        ]
+
+        return {"entries": data}, 200
+        
 
 
 

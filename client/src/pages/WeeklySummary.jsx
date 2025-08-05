@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from 'axios';
-import { Box, Title, Text, Stack, Button, Loader, Collapse, Flex, Container, Paper} from '@mantine/core';
+import { Group, Title, Text, Stack, Button, Loader, Collapse, Flex, Container, Paper} from '@mantine/core';
 import AiSuggestionForm from "../components/AiSuggestionForm";
+import WeeklyAnalysis from "../components/WeeklyAnalysis";
 import dayjs from 'dayjs';
 
 
@@ -54,43 +55,50 @@ export default function WeeklySummary() {
 
   return (
     <Container>
-      <Stack>
-        <Title order={2} mt={50} mb={10} ta="center">Weekly Summary</Title>
-        <Text size="md" c="dimmed" ta="center" mb={30}>{dateRangeStr}</Text>
+      <Title order={2} mt={50} mb={10} ta="center">Weekly Summary</Title>
+      <Text size="md" c="dimmed" ta="center" mb={30}>{dateRangeStr}</Text>
+        <Stack>
+            <Title order={3} mt={30} mb="md" ta="center">Emotional Analysis</Title>
+            <Flex>
+                <WeeklyAnalysis year={year} week_number={week_number} />   
+            </Flex>
+        </Stack>
 
-        {error && <Alert color="red">{error}</Alert>}
+        <Stack mt={50}>
+            <Title order={3} mt={30} mb="md" ta="center">AI Insight</Title>
+            {error && <Alert color="red">{error}</Alert>}
 
-        {suggestion ? (
-            <>
-                {(() => {
-                const tips = suggestion.selfcare_tips.match(/\d+\.\s[^(\d+)]+/g);
+            {suggestion ? (
+                <>
+                    {(() => {
+                    const tips = suggestion.selfcare_tips.match(/\d+\.\s[^(\d+)]+/g);
 
-                return (
-                    <>
-                    <Paper shadow="xs" p="xl" withBorder radius="md" mb={20}>
-                        <Text fw={700} fz="lg" mb={10}> 📌 Summary</Text>
-                        <Text>{suggestion.summary}</Text>
-                    </Paper>
+                    return (
+                        <>
+                        <Paper shadow="xs" p="xl" withBorder radius="md" mb={20}>
+                            <Text fw={700} fz="lg" mb={10}> 📌 Summary</Text>
+                            <Text>{suggestion.summary}</Text>
+                        </Paper>
 
-                    <Paper shadow="xs" p="xl" withBorder radius="md" mb={20}>
-                        <Text fw={700} fz="lg" mb={10}>💡 Self-Care Tips</Text>
-                        <Stack>
-                        {tips?.map((tip, index) => (
-                            <Text key={index}>{tip.trim()}</Text>
-                        ))}
-                        </Stack>
-                    </Paper>
-                    </>
-                );
-                })()}
-            </>
-        ) : (
-            <>
-                <Text>No summary generated for this week.</Text>
-                <AiSuggestionForm year={year} week_number={week_number} onSuccess={fetchSuggestion} />
-            </>
-        )}
-      </Stack>
+                        <Paper shadow="xs" p="xl" withBorder radius="md" mb={20}>
+                            <Text fw={700} fz="lg" mb={10}>💡 Self-Care Tips</Text>
+                            <Stack>
+                            {tips?.map((tip, index) => (
+                                <Text key={index}>{tip.trim()}</Text>
+                            ))}
+                            </Stack>
+                        </Paper>
+                        </>
+                    );
+                    })()}
+                </>
+            ) : (
+                <>
+                    {/* <Text>No summary generated for this week.</Text> */}
+                    <AiSuggestionForm year={year} week_number={week_number} onSuccess={fetchSuggestion} />
+                </>
+            )}
+        </Stack>
     </Container>
   );
 }

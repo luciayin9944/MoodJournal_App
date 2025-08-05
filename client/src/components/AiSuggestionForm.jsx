@@ -44,10 +44,7 @@ export default function AiSuggestionForm({ year, week_number, onSuccess }) {
     };
 
     return (
-        <Card shadow="sm" padding="lg" radius="md" withBorder>
-            <Title order={3}>AI Suggestion</Title>
-            <Space h="md" />
-
+        <Card shadow="sm" padding="lg" radius="md" withBorder mb="xl">
             {error && (
                 <Alert icon={<IconAlertCircle size={16} />} color="red" mb="md">
                 {error}
@@ -74,7 +71,7 @@ export default function AiSuggestionForm({ year, week_number, onSuccess }) {
                 </>
             ) : (
                 <Stack>
-                    <Text>No summary generated for this week.</Text>
+                    <Text>No summary is available for this week. A minimum of 4 journal entries is required to generate an AI-powered reflection.</Text>
                     <Button onClick={handleGenerate}>✨ Generate AI Suggestion</Button>
                 </Stack>
             )}
