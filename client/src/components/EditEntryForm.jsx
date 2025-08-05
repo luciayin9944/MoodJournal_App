@@ -1,3 +1,5 @@
+// EditEntryForm.jsx
+
 import { useState } from 'react';
 import { Textarea, Button, NumberInput, Select, Stack, Notification } from '@mantine/core';
 import axios from 'axios';

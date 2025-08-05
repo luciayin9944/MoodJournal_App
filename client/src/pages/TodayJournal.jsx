@@ -60,6 +60,7 @@ export default function TodayJournal() {
       });
       setTodayEntry(null);
       setIsEditing(false);
+      handleEntryChange();
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to delete entry.');
     }
@@ -85,6 +86,11 @@ export default function TodayJournal() {
     fetchJournals();
   }, []);
 
+  const handleEntryChange = () => {
+    fetchTodayEntry();
+    fetchJournals();
+  };
+
   if (loading) return <Loader mt="md" />;
 
   const currentWeekJournal = journals.find(j => j.year === currentYear && j.week_number === currentWeek);
@@ -106,6 +112,7 @@ export default function TodayJournal() {
             onUpdate={(updatedEntry) => {
               setTodayEntry(updatedEntry);
               setIsEditing(false);
+              handleEntryChange();
             }}
           />
         ) : todayEntry ? (
@@ -130,9 +137,7 @@ export default function TodayJournal() {
             <NewEntryForm
               defaultDate={new Date()}
               editableDate={false}
-              onSuccess={() => {
-                fetchTodayEntry();
-              }}
+              onSuccess={handleEntryChange}
             />
           </Box>
         )}
