@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar.jsx";
 import TodayJournal from "./pages/TodayJournal.jsx";
 import axios from 'axios';
 import JournalList from "./pages/JournalList.jsx";
+import WeeklySummary from "./pages/WeeklySummary.jsx";
 
 
 export default function App() {
@@ -61,6 +62,8 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard user={user} />} />
           <Route path="/entries/today" element={<TodayJournal />} />
           <Route path="/journals" element={<JournalList />} />
+          <Route path="/journals/:year/:week_number/summary" element={<WeeklySummary />} />
+          
         </Routes>
       </AppShell.Main>
     </AppShell>

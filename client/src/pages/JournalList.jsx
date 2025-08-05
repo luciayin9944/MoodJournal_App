@@ -30,14 +30,14 @@ export default function JournalList() {
   const fetchJournals = async (pageNumber = 1) => {
     setLoading(true);
     try {
-      const res = await axios.get(`/journals?page=${pageNumber}`, {
+      const response = await axios.get(`/journals?page=${pageNumber}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
-      setJournals(res.data.journals);
-      setPages(res.data.pages);
-      setPage(res.data.page);
+      setJournals(response.data.journals);
+      setPages(response.data.pages);
+      setPage(response.data.page);
     } catch (err) {
       console.error('Failed to load journals', err);
     } finally {

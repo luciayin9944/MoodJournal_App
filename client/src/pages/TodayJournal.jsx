@@ -95,7 +95,7 @@ export default function TodayJournal() {
   return (
     <Container>
       <Box p="md">
-        <Title order={2} mt={50} mb={20} ta="center">Today's Journal</Title>
+        <Title order={2} mt={50} mb={20} ta="center">Today's Mood</Title>
         <Text size="md" c="dimmed" ta="center" mb={40}>Date: {todayStr}</Text>
 
         {loading ? (
@@ -144,7 +144,7 @@ export default function TodayJournal() {
         )}
       </Box>
       <Box mt="lg" mb={60}>
-        <Title order={2} mt={60} mb={30} ta="center">Current Week's Journals</Title>
+        <Title order={2} mt={60} mb={30} ta="center">Week's Journals</Title>
         <Text ta="center" mb={30}>{dateRangeStr}</Text>
         {currentWeekJournal ? (
             <WeekEntriesGroup
@@ -153,7 +153,7 @@ export default function TodayJournal() {
                 expanded={true}
             />
         ) : (
-            <p>No journals for this week.</p>
+            <p>No journals for this week yet.</p>
         )}
       </Box>
     </Container>
