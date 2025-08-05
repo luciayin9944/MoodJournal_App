@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import axios from "axios";
-import { Button, Card, Text, List, Loader, Alert, Title, Space } from "@mantine/core";
+import { Button, Card, Text, List, Loader, Alert, Title, Space, Stack } from "@mantine/core";
 import { IconAlertCircle } from "@tabler/icons-react";
 
 
-export default function AiSuggestionForm({ year, week_number }) {
+export default function AiSuggestionForm({ year, week_number, onSuccess }) {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [summary, setSummary] = useState("")
@@ -30,9 +30,11 @@ export default function AiSuggestionForm({ year, week_number }) {
             );
 
             const { summary, selfcare_tips } = response.data;
-
             setSummary(summary);
             setTips(selfcare_tips.split("\n").filter((tip) => tip.trim()));
+            if (onSuccess) {
+                onSuccess();
+            }
         } catch (err) {
             console.error(err);
             setError(err.response?.data?.error || "Something went wrong.");
@@ -43,7 +45,7 @@ export default function AiSuggestionForm({ year, week_number }) {
 
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>
-            <Title order={3}>Weekly AI Suggestion</Title>
+            <Title order={3}>AI Suggestion</Title>
             <Space h="md" />
 
             {error && (
@@ -66,9 +68,9 @@ export default function AiSuggestionForm({ year, week_number }) {
                     ))}
                 </List>
 
-                <Button variant="light" mt="md" onClick={handleGenerate}>
+                {/* <Button variant="light" mt="md" onClick={handleGenerate}>
                     🔄 Regenerate
-                </Button>
+                </Button> */}
                 </>
             ) : (
                 <Stack>

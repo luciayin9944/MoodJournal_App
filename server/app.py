@@ -304,7 +304,7 @@ load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 class AiSuggestion(Resource):
-    @jwt_required
+    @jwt_required()
     def post(self, year, week_number):
         curr_user_id = get_jwt_identity()
 
@@ -312,18 +312,22 @@ class AiSuggestion(Resource):
         if not week_journal:
             return {"message": "No journal found for this week."}, 404
         
+        # if suggestion exist, return result. Don't generate new suggestions!
+        suggestion = Suggestion.query.filter_by(journal_id=week_journal.id).first()
+        if suggestion:
+            result = SuggestionSchema().dump(suggestion)
+            return result, 200
+        
         entries = JournalEntry.query.filter_by(journal_id=week_journal.id).order_by(JournalEntry.entry_date.asc()).all()
 
         if len(entries) < 4:
             return {"message": "Not enough journal entries to generate summary (minimum 4 required)."}, 400
-        #else:
 
         ##WRONG; entries_dicts = jsonify(JournalEntrySchema(many=True).dump(entries))
         entry_dicts = JournalEntrySchema(many=True).dump(entries)
         combined_text = "\n".join(
             [f"{entry['entry_date']}: {entry['notes']}" for entry in entry_dicts if entry.get("notes")]
         )
-           
 
         prompt = f"""
         You are a mental health assistant. Please analyze the following weekly journal logs and return your response in valid JSON with two fields: "summary" and "self_care_tips" (an array of 3 tips).
@@ -400,7 +404,7 @@ class AiSuggestion(Resource):
         if suggestion:
             return {
                 "summary": suggestion.summary,
-                "self_care_tips": suggestion.self_care_tips
+                "selfcare_tips": suggestion.selfcare_tips
             }, 200
         else:
             return {"error": "No suggestion found for this week."}, 404

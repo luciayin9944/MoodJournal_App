@@ -17,13 +17,14 @@ export default function Navbar() {
       bg="var(--mantine-color-body)"
       align="stretch"
       justify="center"
-      gap="sm"
+      gap="xl"
       px="md"
+      mt={50}
     >
       <Button
         variant="outline"
         color="grey"
-        size="md"
+        size="xl"
         onClick={() => navigate('/dashboard')}
       >
         Dashboard
@@ -31,7 +32,7 @@ export default function Navbar() {
       <Button
         variant="outline"
         color="grey"
-        size="md"
+        size="xl"
         onClick={() => navigate('/entries/today')}
       >
         Current Journal
@@ -39,7 +40,7 @@ export default function Navbar() {
       <Button
         variant="outline"
         color="grey"
-        size="md"
+        size="xl"
         onClick={() => navigate('/journals')}
       >
         All Journals
@@ -47,17 +48,10 @@ export default function Navbar() {
       <Button
         variant="outline"
         color="grey"
-        size="md"
+        size="xl"
         onClick={() => navigate(`/journals/${currentYear}/${currentWeek}/summary`)}
       >
-        Current Summary
-      </Button>
-      <Button
-        variant="outline"
-        color="grey"
-        size="md"
-      >
-        AI Suggestions
+        Weekly Summary
       </Button>
     </Stack>
   );
