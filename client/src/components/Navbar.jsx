@@ -45,7 +45,7 @@ export default function Navbar() {
       >
         Weekly Summary
       </Button>
-            <Button
+      <Button
         variant="outline"
         color="grey"
         size="xl"

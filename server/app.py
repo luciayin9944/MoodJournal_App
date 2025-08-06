@@ -30,6 +30,7 @@ def create_app():
     # Journal (weekly)
     api.add_resource(JournalList, '/journals')  # GET list paginated
     api.add_resource(JournalWeek, '/journals/<int:year>/<int:week_number>')  # GET entries in week
+    api.add_resource(HasJournalEntries, '/journals/<int:year>/<int:week_number>/has_entries')
 
     # Entry (daily)
     api.add_resource(NewEntry, '/entries')  # POST new, GET by entry_id
@@ -442,5 +443,17 @@ class WeeklyAnalysis(Resource):
 
 
 
+class HasJournalEntries(Resource):
+    @jwt_required()
+    def get(self, year, week_number):
+        curr_user_id = get_jwt_identity()
 
-
+        week_journal = Journal.query.filter_by(user_id=curr_user_id, year=year, week_number=week_number).first()
+        if not week_journal:
+            return {"has_entries": False}, 200
+        
+        entry = db.session.query(JournalEntry.id).filter_by(journal_id=week_journal.id).first()
+        if entry:
+            return {"has_entries": True}, 200
+        else:
+            return {"has_entries": False}, 200

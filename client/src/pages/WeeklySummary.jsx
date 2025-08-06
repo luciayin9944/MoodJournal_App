@@ -1,9 +1,9 @@
 // WeeklySummary.jsx
 
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { Group, Title, Text, Stack, Button, Loader, Collapse, Flex, Container, Paper} from '@mantine/core';
+import { Alert, Title, Text, Stack, Button, Loader, Flex, Container, Paper} from '@mantine/core';
 import AiSuggestionForm from "../components/AiSuggestionForm";
 import WeeklyAnalysis from "../components/WeeklyAnalysis";
 import dayjs from 'dayjs';
@@ -13,9 +13,11 @@ export default function WeeklySummary() {
     const [suggestion, setSuggestion] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-    const { year, week_number } = useParams();
     const [showForm, setShowForm] = useState(false);
+    const [hasEntries, setHasEntries] = useState(false);  
 
+    const { year, week_number } = useParams();
+    const navigate = useNavigate();
 
     const fetchSuggestion = async () => {
         setIsLoading(true);
@@ -39,8 +41,22 @@ export default function WeeklySummary() {
         }
     };
 
+    const checkIfEntriesExist = async () => {
+        try {
+            const response = await axios.get(`/journals/${year}/${week_number}/has_entries`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+            setHasEntries(response.data.has_entries); // expects: { has_entries: true/false }
+         } catch (err) {
+            console.error('Failed to check journal entries', err);
+        }
+    };
+
     useEffect(() => {
         fetchSuggestion();
+        checkIfEntriesExist();
     }, [year, week_number]);
 
     if (isLoading) {
@@ -57,14 +73,22 @@ export default function WeeklySummary() {
 
     return (
     <Container>
-      <Title order={2} mt={50} mb={10} ta="center">Weekly Summary</Title>
-      <Text size="md" c="dimmed" ta="center" mb={30}>{dateRangeStr}</Text>
-        <Stack>
-            <Title order={3} mt={30} mb="md" ta="center">Emotional Analysis</Title>
-            <Flex>
-                <WeeklyAnalysis year={year} week_number={week_number} />   
-            </Flex>
-        </Stack>
+        <Title order={2} mt={50} mb={10} ta="center">Weekly Summary</Title>
+        <Text size="md" c="dimmed" ta="center" mb={30}>{dateRangeStr}</Text>
+
+        {hasEntries ? (
+            <Stack>
+                <Title order={3} mt={30} mb="md" ta="center">Emotional Analysis</Title>
+                <Flex>
+                    <WeeklyAnalysis year={year} week_number={week_number} />   
+                </Flex>
+            </Stack>
+        ) : (
+            <Stack align="center" mt={40} mb={60}>
+                <Text size="md">Oops, no journal entry for this week yet.</Text>
+                <Button variant="outline" onClick={() => navigate('/entries/today')}>Add Journal</Button>
+            </Stack>
+        )}
 
         <Stack mt={50}>
             <Title order={3} mt={30} mb="md" ta="center">AI Insight</Title>
@@ -122,68 +146,3 @@ export default function WeeklySummary() {
 
 
 
-
-
-
-
-
-
-
-
-
-//   return (
-//     <Container>
-//       <Title order={2} mt={50} mb={10} ta="center">Weekly Summary</Title>
-//       <Text size="md" c="dimmed" ta="center" mb={30}>{dateRangeStr}</Text>
-//         <Stack>
-//             <Title order={3} mt={30} mb="md" ta="center">Emotional Analysis</Title>
-//             <Flex>
-//                 <WeeklyAnalysis year={year} week_number={week_number} />   
-//             </Flex>
-//         </Stack>
-
-//         <Stack mt={50}>
-//             <Title order={3} mt={30} mb="md" ta="center">AI Insight</Title>
-//             {error && <Alert color="red">{error}</Alert>}
-
-//             {suggestion ? (
-//                 <>
-//                     {(() => {
-//                     let parsedTips = [];
-
-//                     try {
-//                         parsedTips = JSON.parse(suggestion.selfcare_tips);
-//                     } catch (e) {
-//                         console.error('Failed to load suggestion', e);
-//                         parsedTips = suggestion.selfcare_tips.split('\n');  // fallback
-//                     }
-
-//                     return (
-//                         <>
-//                         <Paper shadow="xs" p="xl" withBorder radius="md" mb={20}>
-//                             <Text fw={700} fz="lg" mb={10}> 📌 Summary</Text>
-//                             <Text>{suggestion.summary}</Text>
-//                         </Paper>
-
-//                         <Paper shadow="xs" p="xl" withBorder radius="md" mb={20}>
-//                             <Text fw={700} fz="lg" mb={10}>💡 Self-Care Tips</Text>
-//                             <Stack>
-//                               {parsedTips.map((tip, index) => (
-//                                 <Text key={index}>	• {tip.trim()}</Text>
-//                               ))}
-//                             </Stack>
-//                         </Paper>
-//                         </>
-//                     );
-//                     })()}
-//                 </>
-//             ) : (
-//                 <>
-//                     {/* <Text>No summary generated for this week.</Text> */}
-//                     <AiSuggestionForm year={year} week_number={week_number} onSuccess={fetchSuggestion} />
-//                 </>
-//             )}
-//         </Stack>
-//     </Container>
-//   );
-// }

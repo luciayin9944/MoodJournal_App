@@ -4,6 +4,7 @@ from app import create_app
 from config import db
 from models import User, Journal, JournalEntry, Suggestion
 from datetime import date
+import json
 
 
 def reset_database():
@@ -43,8 +44,10 @@ def seed_data():
     suggestion_29 = Suggestion(
         journal_id=journal_29.id,
         summary="The emotional trend seems to fluctuate throughout the week, with moments of tiredness, productivity, overwhelm, joy with friends, low energy, clarity after hiking, and anxiety about work deadlines.",
-        selfcare_tips="1. Practice mindfulness techniques to manage feelings of overwhelm and anxiety. Take a few minutes each day to focus on your breath and bring yourself back to the present moment."
-                      "2. Prioritize self-care activities that bring you joy and energy, such as spending more time with friends, engaging in activities you love, or getting regular exercise to boost your mood and energy levels."
+        selfcare_tips=json.dumps([
+            "Practice mindfulness techniques to manage feelings of overwhelm and anxiety. Take a few minutes each day to focus on your breath and bring yourself back to the present moment.",
+            " Prioritize self-care activities that bring you joy and energy, such as spending more time with friends, engaging in activities you love, or getting regular exercise to boost your mood and energy levels."
+        ])
     )
     db.session.add(suggestion_29)
 
@@ -71,7 +74,10 @@ def seed_data():
     suggestion_30 = Suggestion(
         journal_id=journal_30.id,
         summary="The week started peacefully and productively but ended with some worry. Balancing mindfulness and productivity helped, but stress resurfaced.",
-        selfcare_tips="1. Continue mindfulness practices throughout the week to stay grounded. 2. Create a clear plan for handling upcoming deadlines to reduce worry and regain control."
+        selfcare_tips=json.dumps([
+            "Continue mindfulness practices throughout the week to stay grounded.", 
+            "Create a clear plan for handling upcoming deadlines to reduce worry and regain control."
+            ])
     )
     db.session.add(suggestion_30)
 
@@ -98,11 +104,15 @@ def seed_data():
     suggestion_31 = Suggestion(
         journal_id=journal_31.id,
         summary="This week was a rollercoaster: frustration mid-week, recovery, then solid wins and reflection. Good resilience shown.",
-        selfcare_tips="1. Acknowledge progress and celebrate small wins. 2. Maintain flexibility when facing obstacles, and build in rest days like the weekend to recover."
+        selfcare_tips=json.dumps([
+            "Acknowledge progress and celebrate small wins.",  
+            "Maintain flexibility when facing obstacles, and build in rest days like the weekend to recover."
+            ])
     )
     db.session.add(suggestion_31)
-
     db.session.commit()
+
+    
     print("✅ Database seeded successfully.")
 
 if __name__ == "__main__":
