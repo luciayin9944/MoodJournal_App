@@ -155,17 +155,19 @@ export default function TodayJournal() {
           <Title order={2} mt={60} mb={30} ta="center">Week's Journals</Title>
           <Text size="md" c="dimmed" ta="center" mb={30}>{dateRangeStr}</Text>
           {currentWeekJournal ? (
+            <>
               <WeekEntriesGroup
-                  year={currentYear}
-                  week={currentWeek}
-                  expanded={true}
+                year={currentYear}
+                week={currentWeek}
+                expanded={true}
               />
+              <Button onClick={() => navigate(`/journals/${currentYear}/${currentWeek}/summary`)}>
+                Weekly Summary
+              </Button>
+            </>
           ) : (
               <p>No journals for this week yet.</p>
           )}
-          <Button onClick={() => navigate(`/journals/${currentYear}/${currentWeek}/summary`)}>
-            Weekly Summary
-          </Button>
         </Stack>
       </Box>
     </Container>
