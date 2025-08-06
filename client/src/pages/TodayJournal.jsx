@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import {Title, Text, Card, Box, Loader, Button, Notification, Group, Container} from '@mantine/core';
+import {Title, Text, Card, Box, Loader, Button, Notification, Group, Container, Stack} from '@mantine/core';
 import dayjs from 'dayjs'; 
 import NewEntryForm from '../components/NewEntryForm';
 import EditEntryForm from '../components/EditEntryForm';
@@ -18,6 +19,7 @@ export default function TodayJournal() {
   const [isEditing, setIsEditing] = useState(false);
 
   const [journals, setJournals] = useState([]);
+  const navigate = useNavigate();
 
   const currentWeek = dayjs().isoWeek();
   const currentYear = dayjs().year();
@@ -149,17 +151,22 @@ export default function TodayJournal() {
         )}
       </Box>
       <Box mt="lg" mb={60}>
-        <Title order={2} mt={60} mb={30} ta="center">Week's Journals</Title>
-        <Text size="md" c="dimmed" ta="center" mb={30}>{dateRangeStr}</Text>
-        {currentWeekJournal ? (
-            <WeekEntriesGroup
-                year={currentYear}
-                week={currentWeek}
-                expanded={true}
-            />
-        ) : (
-            <p>No journals for this week yet.</p>
-        )}
+        <Stack>
+          <Title order={2} mt={60} mb={30} ta="center">Week's Journals</Title>
+          <Text size="md" c="dimmed" ta="center" mb={30}>{dateRangeStr}</Text>
+          {currentWeekJournal ? (
+              <WeekEntriesGroup
+                  year={currentYear}
+                  week={currentWeek}
+                  expanded={true}
+              />
+          ) : (
+              <p>No journals for this week yet.</p>
+          )}
+          <Button onClick={() => navigate(`/journals/${currentYear}/${currentWeek}/summary`)}>
+            Weekly Summary
+          </Button>
+        </Stack>
       </Box>
     </Container>
   );
