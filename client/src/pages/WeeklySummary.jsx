@@ -71,7 +71,14 @@ export default function WeeklySummary() {
             {suggestion ? (
                 <>
                     {(() => {
-                    const tips = suggestion.selfcare_tips.match(/\d+\.\s[^(\d+)]+/g);
+                    let parsedTips = [];
+
+                    try {
+                        parsedTips = JSON.parse(suggestion.selfcare_tips);
+                    } catch (e) {
+                        console.error('Failed to load suggestion', e);
+                        parsedTips = suggestion.selfcare_tips.split('\n');  // fallback
+                    }
 
                     return (
                         <>
@@ -83,9 +90,9 @@ export default function WeeklySummary() {
                         <Paper shadow="xs" p="xl" withBorder radius="md" mb={20}>
                             <Text fw={700} fz="lg" mb={10}>💡 Self-Care Tips</Text>
                             <Stack>
-                            {tips?.map((tip, index) => (
-                                <Text key={index}>{tip.trim()}</Text>
-                            ))}
+                              {parsedTips.map((tip, index) => (
+                                <Text key={index}>	• {tip.trim()}</Text>
+                              ))}
                             </Stack>
                         </Paper>
                         </>

@@ -322,7 +322,7 @@ class AiSuggestion(Resource):
         
         entries = JournalEntry.query.filter_by(journal_id=week_journal.id).order_by(JournalEntry.entry_date.asc()).all()
 
-        if len(entries) < 4:
+        if len(entries) < 2:
             return {"message": "Not enough journal entries to generate summary (minimum 4 required)."}, 400
 
         ##WRONG; entries_dicts = jsonify(JournalEntrySchema(many=True).dump(entries))
@@ -365,7 +365,8 @@ class AiSuggestion(Resource):
             parsed = json.loads(ai_result)
             summary = parsed.get("summary", "")
             tips = parsed.get("self_care_tips", [])
-            tips_text = "\n".join(tips)
+            # tips_text = "\n".join(tips)
+            tips_text = json.dumps(tips)
         except json.JSONDecodeError:
             return {"error": "Failed to parse AI response as JSON."}, 500
         except Exception as e:
@@ -440,19 +441,6 @@ class WeeklyAnalysis(Resource):
         
 
 
-
-
-
-
-
-
-
-        
-
-
-
-
-        
 
 
 

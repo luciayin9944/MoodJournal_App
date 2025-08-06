@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import axios from "axios";
-import { Button, Card, Text, List, Loader, Alert, Title, Space, Stack } from "@mantine/core";
+import { Button, Card, Text, List, Loader, Alert, Stack } from "@mantine/core";
 import { IconAlertCircle } from "@tabler/icons-react";
 
 
@@ -30,8 +30,17 @@ export default function AiSuggestionForm({ year, week_number, onSuccess }) {
             );
 
             const { summary, selfcare_tips } = response.data;
+
+            let parsedTips;
+
+            try {
+                parsedTips = JSON.parse(selfcare_tips);  // parse JSON string to array
+            } catch {
+                parsedTips = selfcare_tips.split("\n");  // fallback in case it's raw text
+            }
+            setTips(parsedTips.filter((tip) => tip.trim()));
             setSummary(summary);
-            setTips(selfcare_tips.split("\n").filter((tip) => tip.trim()));
+            
             if (onSuccess) {
                 onSuccess();
             }
@@ -53,8 +62,8 @@ export default function AiSuggestionForm({ year, week_number, onSuccess }) {
 
             {isLoading ? (
                 <Loader />
-            ) : summary ? (
-                <>
+            ) : summary && summary.trim() ? (
+              <>
                 <Text fw={500}>📌 Summary</Text>
                 <Text mb="md">{summary}</Text>
 
@@ -68,12 +77,12 @@ export default function AiSuggestionForm({ year, week_number, onSuccess }) {
                 {/* <Button variant="light" mt="md" onClick={handleGenerate}>
                     🔄 Regenerate
                 </Button> */}
-                </>
+              </>
             ) : (
-                <Stack>
-                    <Text>No summary is available for this week. A minimum of 4 journal entries is required to generate an AI-powered reflection.</Text>
-                    <Button onClick={handleGenerate}>✨ Generate AI Suggestion</Button>
-                </Stack>
+              <Stack>
+                <Text>No summary is available for this week. A minimum of 4 journal entries is required to generate an AI-powered reflection.</Text>
+                <Button onClick={handleGenerate}>✨ Generate AI Suggestion</Button>
+              </Stack>
             )}
         </Card>
     );

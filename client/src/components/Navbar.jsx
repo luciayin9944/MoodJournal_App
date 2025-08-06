@@ -41,17 +41,17 @@ export default function Navbar() {
         variant="outline"
         color="grey"
         size="xl"
-        onClick={() => navigate('/journals')}
-      >
-        All Journals
-      </Button>
-      <Button
-        variant="outline"
-        color="grey"
-        size="xl"
         onClick={() => navigate(`/journals/${currentYear}/${currentWeek}/summary`)}
       >
         Weekly Summary
+      </Button>
+            <Button
+        variant="outline"
+        color="grey"
+        size="xl"
+        onClick={() => navigate('/journals')}
+      >
+        All Journals
       </Button>
     </Stack>
   );
