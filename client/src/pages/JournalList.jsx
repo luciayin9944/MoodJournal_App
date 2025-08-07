@@ -23,13 +23,14 @@ export default function JournalList() {
   const [selectedYear, setSelectedYear] = useState(null);
   const [selectedMonth, setSelectedMonth] = useState(null);
 
+
   const filteredJournals = journals.filter((j) => {
-    if (selectedYear) {
-      if (!j.year) return false;
-      if (j.year.toString() !== selectedYear) return false;
-    }
-    return true;
-  });
+  if (selectedYear && selectedYear !== 'all') {
+    if (!j.year) return false;
+    if (j.year.toString() !== selectedYear) return false;
+  }
+  return true;
+});
 
 
   const fetchJournals = async (pageNumber = 1) => {
@@ -129,10 +130,13 @@ export default function JournalList() {
         <Flex justify="center" gap="md" mb="lg">
           <Select
             placeholder="Select year"
-            data={Array.from({ length: 3 }, (_, i) => {
-              const year = dayjs().year() - i;
-              return { label: year.toString(), value: year.toString() };
-            })}
+            data={[
+              { label: 'All', value: 'all' },
+              ...Array.from({ length: 3 }, (_, i) => {
+                const year = dayjs().year() - i;
+                return { label: year.toString(), value: year.toString() };
+              }),
+            ]}
             value={selectedYear}
             onChange={setSelectedYear}
             w={120}
