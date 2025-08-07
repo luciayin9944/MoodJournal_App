@@ -33,6 +33,7 @@
     "embla-carousel": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "react": "^19.1.0",
+    "react-d3-cloud": "^1.0.6",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.7.1",
     "recharts": "^3.1.0"

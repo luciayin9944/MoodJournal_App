@@ -7,6 +7,8 @@ from models import *
 from sqlalchemy.exc import IntegrityError
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 from datetime import date
+from sqlalchemy import extract
+import json
 
 
 
@@ -29,17 +31,19 @@ def create_app():
 
     # Journal (weekly)
     api.add_resource(JournalList, '/journals')  # GET list paginated
-    api.add_resource(JournalWeek, '/journals/<int:year>/<int:week_number>')  # GET entries in week
+    api.add_resource(WeeklyJournal, '/journals/<int:year>/<int:week_number>')  # GET entries in week
     api.add_resource(HasJournalEntries, '/journals/<int:year>/<int:week_number>/has_entries')
 
     # Entry (daily)
     api.add_resource(NewEntry, '/entries')  # POST new, GET by entry_id
     api.add_resource(Entry, '/entries/<int:entry_id>')  # PATCH, DELETE
     api.add_resource(TodayEntry, '/entries/today')  # GET today's entry
+    api.add_resource(MontlyEntries, '/entries/<int:year>/<int:month>')
 
     # Summary
     api.add_resource(AiSuggestion, '/journals/<int:year>/<int:week_number>/suggestion')
     api.add_resource(WeeklyAnalysis, '/journals/<int:year>/<int:week_number>/analysis')
+    api.add_resource(MonthlyWordCloud, '/entries/<int:year>/<int:month>/word_cloud')
 
     return app
 
@@ -256,7 +260,7 @@ class TodayEntry(Resource):
 
 
 
-class JournalWeek(Resource):
+class WeeklyJournal(Resource):
     @jwt_required()
     def get(self, year, week_number):
         curr_user_id = get_jwt_identity()
@@ -298,7 +302,6 @@ class JournalList(Resource):
 
 ### OpenAi API
 import os
-import json
 from dotenv import load_dotenv
 from openai import OpenAI
 
@@ -437,11 +440,8 @@ class WeeklyAnalysis(Resource):
             }
             for entry in entries
         ]
-
         return {"entries": data}, 200
         
-
-
 
 class HasJournalEntries(Resource):
     @jwt_required()
@@ -457,3 +457,108 @@ class HasJournalEntries(Resource):
             return {"has_entries": True}, 200
         else:
             return {"has_entries": False}, 200
+
+
+class MontlyEntries(Resource):
+    @jwt_required()
+    def get(self, year, month):
+        curr_user_id = get_jwt_identity()
+
+        month_entries = (
+            JournalEntry.query
+            .join(Journal)
+            .filter(
+                Journal.user_id==curr_user_id,
+                extract('year', JournalEntry.entry_date)==year,
+                extract('month', JournalEntry.entry_date)==month
+            )
+            .all()
+        )
+        return jsonify(JournalEntrySchema(many=True).dump(month_entries))
+
+
+
+class MontlyEntriesAnalysis(Resource):
+    @jwt_required()
+    def get(self, year, month):
+        curr_user_id = get_jwt_identity()
+
+        month_entries = (
+            JournalEntry.query
+            .join(Journal)
+            .filter(
+                Journal.user_id==curr_user_id,
+                extract('year', JournalEntry.entry_date)==year,
+                extract('month', JournalEntry.entry_date)==month
+            )
+            .all()
+        )
+        data = [
+            {
+                "entry_date": entry.entry_date.isoformat(),
+                "mood_score": entry.mood_score,
+                "mood_tag": entry.mood_tag,
+                "notes": entry.notes
+            }
+            for entry in month_entries
+        ]
+        return {"month_entries": data}, 200
+    
+
+
+
+import re
+from collections import Counter
+from wordcloud import WordCloud
+from wordcloud import STOPWORDS
+import matplotlib.pyplot as plt
+
+class MonthlyWordCloud(Resource):
+    @jwt_required()
+    def get(self, year, month):
+        curr_user_id = get_jwt_identity()
+
+        entries = (
+            JournalEntry.query
+            .join(Journal)
+            .filter(
+                Journal.user_id==curr_user_id,
+                extract('year', JournalEntry.entry_date)==year,
+                extract('month', JournalEntry.entry_date)==month
+            ).all()
+        )
+
+        note_text = []
+        for entry in entries:
+            if entry.notes:
+                note_text.append(entry.notes)
+            else:
+                note_text.append("")
+
+        text = " ".join(note_text)
+        ## remove punction
+        text = re.sub(r'[^A-Za-z\s]', '', text)
+        text = text.lower().split()
+        stopwords = set(STOPWORDS)
+        # Add custom stopwords
+        stopwords.update(['feeling', 'felt', 'today', 'yesterday', 'didnt', 'time', 'day', 'went',
+                   'much', 'wanted', 'lot', 'made']) 
+        filtered_words = [word for word in text if word not in stopwords]
+
+        word_freq = Counter(filtered_words)
+        top_words = word_freq.most_common(50)
+
+        word_cloud = []
+        for word, freq in top_words:
+            word_cloud.append({"text": word, "value": freq})
+        
+        return {"word_cloud": word_cloud}, 200
+
+
+
+
+
+        
+
+
+        
