@@ -21,6 +21,126 @@ def seed_data():
     db.session.add(user)
     db.session.commit()
 
+    ## === Week 25 ===
+    journal_25 = Journal(
+        week_number=25,
+        year=2025,
+        user_id=user.id
+    )
+    db.session.add(journal_25)
+    db.session.commit()
+
+    entries_25 = [
+        JournalEntry(journal_id=journal_25.id, entry_date=date(2025, 6, 16), mood_tag="Happy", mood_score=7, notes="Great start to the week."),
+        JournalEntry(journal_id=journal_25.id, entry_date=date(2025, 6, 17), mood_tag="Tired", mood_score=5, notes="Didn't sleep well last night."),
+        JournalEntry(journal_id=journal_25.id, entry_date=date(2025, 6, 18), mood_tag="Productive", mood_score=8, notes="Knocked out all my to-dos."),
+        JournalEntry(journal_id=journal_25.id, entry_date=date(2025, 6, 19), mood_tag="Relaxed", mood_score=6, notes="Took time to unwind."),
+        JournalEntry(journal_id=journal_25.id, entry_date=date(2025, 6, 20), mood_tag="Lonely", mood_score=4, notes="Felt isolated today."),
+        JournalEntry(journal_id=journal_25.id, entry_date=date(2025, 6, 21), mood_tag="Joyful", mood_score=9, notes="Hung out with friends."),
+        JournalEntry(journal_id=journal_25.id, entry_date=date(2025, 6, 22), mood_tag="Calm", mood_score=7, notes="Peaceful Sunday.")
+    ]
+    db.session.add_all(entries_25)
+
+    suggestion_25 = Suggestion(
+        journal_id=journal_25.id,
+        summary="Week started strong with happiness and productivity, dipped mid-week due to loneliness but ended joyfully and peacefully.",
+        selfcare_tips=json.dumps([
+            "Reach out to friends when feeling lonely, even for a short call.",
+            "Maintain consistent sleep habits to stay energized during the week."
+        ])
+    )
+    db.session.add(suggestion_25)
+
+    ## === Week 26 ===
+    journal_26 = Journal(
+        week_number=26,
+        year=2025,
+        user_id=user.id
+    )
+    db.session.add(journal_26)
+    db.session.commit()
+
+    entries_26 = [
+        JournalEntry(journal_id=journal_26.id, entry_date=date(2025, 6, 23), mood_tag="Hopeful", mood_score=7, notes="Started new goals."),
+        JournalEntry(journal_id=journal_26.id, entry_date=date(2025, 6, 24), mood_tag="Bored", mood_score=4, notes="Day felt slow."),
+        JournalEntry(journal_id=journal_26.id, entry_date=date(2025, 6, 25), mood_tag="Productive", mood_score=8, notes="Accomplished a lot."),
+        JournalEntry(journal_id=journal_26.id, entry_date=date(2025, 6, 26), mood_tag="Anxious", mood_score=5, notes="Upcoming presentation."),
+        JournalEntry(journal_id=journal_26.id, entry_date=date(2025, 6, 27), mood_tag="Stressed", mood_score=4, notes="Too many tasks."),
+        JournalEntry(journal_id=journal_26.id, entry_date=date(2025, 6, 28), mood_tag="Relaxed", mood_score=7, notes="Took a break."),
+        JournalEntry(journal_id=journal_26.id, entry_date=date(2025, 6, 29), mood_tag="Excited", mood_score=9, notes="Looking forward to next week.")
+    ]
+    db.session.add_all(entries_26)
+
+    suggestion_26 = Suggestion(
+        journal_id=journal_26.id,
+        summary="Productivity was high but anxiety and stress spiked mid-week. Ending the week excited is a positive sign.",
+        selfcare_tips=json.dumps([
+            "Break large tasks into smaller ones to reduce stress.",
+            "Allow time to recharge on weekends to prevent burnout."
+        ])
+    )
+    db.session.add(suggestion_26)
+
+    ## === Week 27 ===
+    journal_27 = Journal(
+        week_number=27,
+        year=2025,
+        user_id=user.id
+    )
+    db.session.add(journal_27)
+    db.session.commit()
+
+    entries_27 = [
+        JournalEntry(journal_id=journal_27.id, entry_date=date(2025, 6, 30), mood_tag="Nervous", mood_score=5, notes="Big meeting today."),
+        JournalEntry(journal_id=journal_27.id, entry_date=date(2025, 7, 1), mood_tag="Productive", mood_score=8, notes="Crushed all tasks."),
+        JournalEntry(journal_id=journal_27.id, entry_date=date(2025, 7, 2), mood_tag="Angry", mood_score=3, notes="Conflict with coworker."),
+        JournalEntry(journal_id=journal_27.id, entry_date=date(2025, 7, 3), mood_tag="Happy", mood_score=7, notes="Resolved issues. Felt better."),
+        JournalEntry(journal_id=journal_27.id, entry_date=date(2025, 7, 4), mood_tag="Joyful", mood_score=8, notes="Celebrated the holiday."),
+        JournalEntry(journal_id=journal_27.id, entry_date=date(2025, 7, 5), mood_tag="Tired", mood_score=5, notes="Stayed up too late."),
+        JournalEntry(journal_id=journal_27.id, entry_date=date(2025, 7, 6), mood_tag="Relaxed", mood_score=6, notes="Catching up on sleep.")
+    ]
+    db.session.add_all(entries_27)
+
+    suggestion_27 = Suggestion(
+        journal_id=journal_27.id,
+        summary="Despite emotional lows early in the week, things improved with resolution, joy, and rest.",
+        selfcare_tips=json.dumps([
+            "Try journaling after emotional conflict to gain perspective.",
+            "Maintain healthy sleep routines to stay emotionally balanced."
+        ])
+    )
+    db.session.add(suggestion_27)
+
+    ## === Week 28 ===
+    journal_28 = Journal(
+        week_number=28,
+        year=2025,
+        user_id=user.id
+    )
+    db.session.add(journal_28)
+    db.session.commit()
+
+    entries_28 = [
+        JournalEntry(journal_id=journal_28.id, entry_date=date(2025, 7, 7), mood_tag="Sad", mood_score=4, notes="Felt low in the morning."),
+        JournalEntry(journal_id=journal_28.id, entry_date=date(2025, 7, 8), mood_tag="Calm", mood_score=6, notes="Walked in nature."),
+        JournalEntry(journal_id=journal_28.id, entry_date=date(2025, 7, 9), mood_tag="Overwhelmed", mood_score=3, notes="Too much on my plate."),
+        JournalEntry(journal_id=journal_28.id, entry_date=date(2025, 7, 10), mood_tag="Hopeful", mood_score=7, notes="Things might get better."),
+        JournalEntry(journal_id=journal_28.id, entry_date=date(2025, 7, 11), mood_tag="Productive", mood_score=8, notes="Completed a major task."),
+        JournalEntry(journal_id=journal_28.id, entry_date=date(2025, 7, 12), mood_tag="Stressed", mood_score=5, notes="Preparing for next week."),
+        JournalEntry(journal_id=journal_28.id, entry_date=date(2025, 7, 13), mood_tag="Relaxed", mood_score=7, notes="Rested and recovered.")
+    ]
+    db.session.add_all(entries_28)
+
+    suggestion_28 = Suggestion(
+        journal_id=journal_28.id,
+        summary="The week began with sadness and stress but ended with productivity and relaxation. A good recovery trend.",
+        selfcare_tips=json.dumps([
+            "Keep practicing gratitude and hopeful thinking.",
+            "Use relaxation techniques like deep breathing or nature walks mid-week when feeling overwhelmed."
+        ])
+    )
+    db.session.add(suggestion_28)
+
     ## === Week 29 ===
     journal_29 = Journal(
         week_number=29,
@@ -75,9 +195,10 @@ def seed_data():
         journal_id=journal_30.id,
         summary="The week started peacefully and productively but ended with some worry. Balancing mindfulness and productivity helped, but stress resurfaced.",
         selfcare_tips=json.dumps([
-            "Continue mindfulness practices throughout the week to stay grounded.", 
-            "Create a clear plan for handling upcoming deadlines to reduce worry and regain control."
-            ])
+            "Maintain daily mindfulness practices, such as morning meditation or evening journaling, to help stabilize your mood and maintain calm through the week.",
+            "When experiencing worry or mental overload, break your workload into small, manageable tasks, and use tools like time blocking or to-do lists to regain clarity and control.",
+            "Make time for regular connection with loved ones, especially on stressful days. Talking to a supportive friend or family member can help reduce worry and remind you of your support system."
+        ])
     )
     db.session.add(suggestion_30)
 
@@ -105,11 +226,29 @@ def seed_data():
         journal_id=journal_31.id,
         summary="This week was a rollercoaster: frustration mid-week, recovery, then solid wins and reflection. Good resilience shown.",
         selfcare_tips=json.dumps([
-            "Acknowledge progress and celebrate small wins.",  
-            "Maintain flexibility when facing obstacles, and build in rest days like the weekend to recover."
-            ])
+            "Recognize and celebrate your small and large accomplishments. Writing them down at the end of the day can build confidence and motivation.",
+            "During periods of frustration or technical blockers, step away briefly to reset. A short walk or deep breathing session can improve focus and reduce stress.",
+            "Balance your drive with rest. Incorporate intentional rest on weekends—unplug from work, limit screen time, and engage in relaxing hobbies that restore your energy."
+        ])
     )
     db.session.add(suggestion_31)
+    db.session.commit()
+
+    ## === Week 32 ===
+    journal_32 = Journal(
+        week_number=32,
+        year=2025,
+        user_id=user.id
+    )
+    db.session.add(journal_32)
+    db.session.commit()
+
+    entries_32 = [
+        JournalEntry(journal_id=journal_32.id, entry_date=date(2025, 8, 4), mood_tag="Focused", mood_score=7, notes="Got into deep work mode. Finished key part of the project."),
+        JournalEntry(journal_id=journal_32.id, entry_date=date(2025, 8, 5), mood_tag="Tired", mood_score=5, notes="Didn't sleep well. Had to push through the day."),
+        JournalEntry(journal_id=journal_32.id, entry_date=date(2025, 8, 6), mood_tag="Excited", mood_score=8, notes="Pushed through a long day of coding. The project is nearly done, feeling tired but excited to see it coming together.")
+    ]
+    db.session.add_all(entries_32)
     db.session.commit()
 
     
@@ -125,120 +264,3 @@ if __name__ == "__main__":
 
 
 
-
-
-
-
-
-
-
-# from app import create_app
-# from config import db
-# from models import User, Journal, JournalEntry, Suggestion
-# from datetime import date
-
-
-# def reset_database():
-#     db.drop_all()
-#     db.create_all()
-
-# def seed_data():
-#     # user
-#     user = User(
-#         username="testuser",
-#         email="test@example.com",
-#     )
-#     user.password_hash = "password123"  
-
-#     db.session.add(user)
-#     db.session.commit()
-
-#     #journal
-#     journal = Journal(
-#         week_number=29,
-#         year=2025,
-#         user_id=user.id
-#     )
-#     db.session.add(journal)
-#     db.session.commit()
-
-  
-#     entry1 = JournalEntry(
-#             journal_id=journal.id,
-#             entry_date=date(2025, 7, 14),
-#             mood_tag= "Tired",
-#             mood_score= 4,
-#             notes = "Felt very tired after work. Just wanted to sleep."
-#         )
-    
-#     entry2 = JournalEntry(
-#             journal_id=journal.id,
-#             entry_date=date(2025, 7, 15),
-#             mood_tag= "Happy",
-#             mood_score=7,
-#             notes = "Had a productive morning. Mood was better than yesterday."
-#         )
-    
-#     entry3= JournalEntry(
-#             journal_id=journal.id,
-#             entry_date=date(2025, 7, 16),
-#             mood_tag="Overwhelmed",
-#             mood_score=5,
-#             notes = "Too many meetings. Overwhelmed and drained."
-#         )
-    
-#     entry4= JournalEntry(
-#             journal_id=journal.id,
-#             entry_date=date(2025, 7, 17),
-#             mood_tag= "Joyful",
-#             mood_score=7,
-#             notes = "Spent time with friends. Laughed a lot. Felt good."
-#         )
-    
-#     entry5= JournalEntry(
-#             journal_id=journal.id,
-#             entry_date=date(2025, 7, 18),
-#             mood_tag= "Tired",
-#             mood_score=5,
-#             notes = "Low energy all day. Didn't feel like doing much."
-#         )
-    
-#     entry6= JournalEntry(
-#             journal_id=journal.id,
-#             entry_date=date(2025, 7, 19),
-#             mood_tag= "Joyful",
-#             mood_score=9,
-#             notes = "Went hiking. It helped clear my mind."
-#         )
-    
-#     entry7= JournalEntry(
-#             journal_id=journal.id,
-#             entry_date=date(2025, 7, 20),
-#             mood_tag= "Anxious",
-#             mood_score=9,
-#             notes = "Back to work stress again. Feeling anxious about deadlines."
-#         )
-
-#     db.session.add_all([entry1, entry2, entry3, entry4, entry5, entry6, entry7])
-#     db.session.commit()
-
-
-    
-#     ## suggestion
-#     suggestion = Suggestion(
-#         journal_id=journal.id,
-#         summary = "The emotional trend seems to fluctuate throughout the week, with moments of tiredness, productivity, overwhelm, joy with friends, low energy, clarity after hiking, and anxiety about work deadlines.",
-#         selfcare_tips = "a. Practice mindfulness techniques to manage feelings of overwhelm and anxiety. Take a few minutes each day to focus on your breath and bring yourself back to the present moment."
-#                         "b. Prioritize self-care activities that bring you joy and energy, such as spending more time with friends, engaging in activities you love, or getting regular exercise to boost your mood and energy levels."
-#         )
-#     db.session.add(suggestion)
-#     db.session.commit()
-
-
-#     print("✅ Database seeded successfully.")
-
-# if __name__ == "__main__":
-#     app = create_app()
-#     with app.app_context():
-#         reset_database()
-#         seed_data()
