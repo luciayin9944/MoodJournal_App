@@ -38,7 +38,8 @@ def create_app():
     api.add_resource(NewEntry, '/entries')  # POST new, GET by entry_id
     api.add_resource(Entry, '/entries/<int:entry_id>')  # PATCH, DELETE
     api.add_resource(TodayEntry, '/entries/today')  # GET today's entry
-    api.add_resource(MonthlyEntriesAnalysis, '/entries/<int:year>/<int:month>')
+    api.add_resource(MonthlyEntries, '/entries/<int:year>/<int:month>')
+    api.add_resource(MonthlyEntriesAnalysis, '/entries/<int:year>/<int:month>/analysis')
 
     # Summary
     api.add_resource(AiSuggestion, '/journals/<int:year>/<int:week_number>/suggestion')

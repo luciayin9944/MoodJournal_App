@@ -15,7 +15,7 @@ export default function MonthlyMoodScores({ year, month }) {
     const fetchEntries = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(`/entries/${year}/${month}`, {
+        const response = await axios.get(`/entries/${year}/${month}/analysis`, {
           headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
