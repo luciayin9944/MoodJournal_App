@@ -38,7 +38,7 @@ def create_app():
     api.add_resource(NewEntry, '/entries')  # POST new, GET by entry_id
     api.add_resource(Entry, '/entries/<int:entry_id>')  # PATCH, DELETE
     api.add_resource(TodayEntry, '/entries/today')  # GET today's entry
-    api.add_resource(MontlyEntries, '/entries/<int:year>/<int:month>')
+    api.add_resource(MonthlyEntriesAnalysis, '/entries/<int:year>/<int:month>')
 
     # Summary
     api.add_resource(AiSuggestion, '/journals/<int:year>/<int:week_number>/suggestion')
@@ -459,7 +459,7 @@ class HasJournalEntries(Resource):
             return {"has_entries": False}, 200
 
 
-class MontlyEntries(Resource):
+class MonthlyEntries(Resource):
     @jwt_required()
     def get(self, year, month):
         curr_user_id = get_jwt_identity()
@@ -478,7 +478,7 @@ class MontlyEntries(Resource):
 
 
 
-class MontlyEntriesAnalysis(Resource):
+class MonthlyEntriesAnalysis(Resource):
     @jwt_required()
     def get(self, year, month):
         curr_user_id = get_jwt_identity()
@@ -502,7 +502,7 @@ class MontlyEntriesAnalysis(Resource):
             }
             for entry in month_entries
         ]
-        return {"month_entries": data}, 200
+        return {"entries": data}, 200
     
 
 

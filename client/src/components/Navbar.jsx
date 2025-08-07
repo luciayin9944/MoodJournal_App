@@ -43,7 +43,7 @@ export default function Navbar() {
         size="xl"
         onClick={() => navigate(`/journals/${currentYear}/${currentWeek}/summary`)}
       >
-        Weekly Summary
+        Weekly AI Insight
       </Button>
       <Button
         variant="outline"
