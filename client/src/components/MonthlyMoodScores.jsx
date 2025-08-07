@@ -54,7 +54,7 @@ export default function MonthlyMoodScores({ year, month }) {
           <Box>
             <ResponsiveContainer width="100%" height={350}>
               <LineChart data={moodScoreData}>
-                <CartesianGrid strokeDasharray="3 3" />
+                {/* <CartesianGrid strokeDasharray="3 3" /> */}
                 <XAxis dataKey="date" />
                 <YAxis domain={[1, 10]} />
                 <RechartTooltip />

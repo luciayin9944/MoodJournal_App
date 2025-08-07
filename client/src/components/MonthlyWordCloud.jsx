@@ -74,7 +74,7 @@ export default function MonthlyWordCloud({ year, month }) {
               fontSizeMapper={fontSizeMapper}
               // width={window.innerWidth * 0.8}
               width={800}
-              height={400}
+              height={360}
             />
           </Box>
         )}

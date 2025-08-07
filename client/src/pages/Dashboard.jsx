@@ -1,17 +1,28 @@
 
-// Dashboard.jsx
+// // Dashboard.jsx
 
-import { Box, Title, Text, Stack, Button, Flex, Pagination, Container, Paper } from '@mantine/core';
+import { useState } from 'react';
+import {Box, Title, Text, Stack, Container, Slider, Group} from '@mantine/core';
 import MonthlyWordCloud from '../components/MonthlyWordCloud';
-import dayjs from 'dayjs';
 import MonthlyMoodScores from '../components/MonthlyMoodScores';
+import dayjs from 'dayjs';
 
 export default function Dashboard({ user }) {
-
   const currentYear = dayjs().year();
-  // const currentMonth = dayjs().month() + 1;
-  const lastMonth = dayjs().month()
+  const currentMonth = dayjs().month() + 1; // month() is 0-indexed
 
+  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
+
+  const monthLabels = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+  ];
+
+  function handleMonthChange(value) {
+    if (value <= currentMonth) {
+      setSelectedMonth(value);
+    }
+  }
 
   return (
     <Container>
@@ -19,15 +30,35 @@ export default function Dashboard({ user }) {
 
       <Stack>
         <Box>
-          <Title order={2} mt={50} mb={30} ta="center">Your Recent Mood Keywords</Title>
-          <MonthlyWordCloud year={currentYear} month={lastMonth} />
-        </Box> 
-
+          <Title order={2} ta="center" mb="xl">{currentYear}</Title>
+          <Slider
+            min={1}
+            max={12}
+            value={selectedMonth}
+            onChange={handleMonthChange}
+            step={1}
+            marks={monthLabels.map((label, index) => ({
+              value: index + 1,
+              label,
+            }))}
+            mb="md"
+          />
+        </Box>
         <Box>
-           <Title order={2} mt={50} mb={30} ta="center">Your Mood Changing</Title>
-           <MonthlyMoodScores year={currentYear} month={lastMonth} />
-        </Box>  
+          <MonthlyWordCloud year={currentYear} month={selectedMonth} />
+          <Title order={3} mt={20} mb={40} ta="center">
+            Your Mood Keywords in {monthLabels[selectedMonth - 1]}
+          </Title>
+        </Box>
+        <Box>
+          <MonthlyMoodScores year={currentYear} month={selectedMonth} />
+          <Title order={3} mt={20} mb={30} ta="center">
+            Your Mood Journey in {monthLabels[selectedMonth - 1]}
+          </Title>
+        </Box>
       </Stack>
     </Container>
   );
 }
+
+
