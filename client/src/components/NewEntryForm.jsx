@@ -10,9 +10,8 @@ import axios from 'axios';
 
 
 const moodTags = [
-    'Happy', 'Joyful', 'Excited', 'Relaxed', 'Calm',
-    'Sad', 'Angry', 'Anxious', 'Stressed', 'Lonely','Productive', 
-    'Tired', 'Overwhelmed', 'Bored', 'Disappointed','Nervous', 'Other'
+    'Happy', 'Joyful', 'Excited', 'Hopeful', 'Relaxed', 'Calm', 'Normal', 'Focused', 'Productive', 
+    'Sad', 'Angry', 'Anxious', 'Stressed', 'Lonely', 'Worried', 'Tired', 'Overwhelmed', 'Bored', 'Disappointed', 'Nervous', 'Other'
 ];
 
 

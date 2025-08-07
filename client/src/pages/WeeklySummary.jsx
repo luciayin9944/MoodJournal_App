@@ -91,7 +91,7 @@ export default function WeeklySummary() {
         )}
 
         <Stack mt={50}>
-            <Title order={3} mt={30} mb="md" ta="center">AI Insight</Title>
+            <Title order={2} mt={30} mb="md" ta="center">AI Insight</Title>
             {error && <Alert color="red">{error}</Alert>}
 
             {suggestion && !showForm ? (
@@ -125,9 +125,9 @@ export default function WeeklySummary() {
                     );
                   })()}
 
-                  <Button variant="light" mb="xl" onClick={() => setShowForm(true)}>
+                  {/* <Button variant="light" mb="xl" onClick={() => setShowForm(true)}>
                     🔄 Regenerate
-                  </Button>
+                  </Button> */}
                 </>
             ) : (
                 <AiSuggestionForm
