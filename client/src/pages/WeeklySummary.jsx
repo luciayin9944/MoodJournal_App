@@ -73,12 +73,12 @@ export default function WeeklySummary() {
 
     return (
     <Container>
-        <Title order={2} mt={50} mb={10} ta="center">Weekly Summary</Title>
+        <Title order={3} mt={50} mb={10} ta="center">Weekly Summary</Title>
         <Text size="md" c="dimmed" ta="center" mb={30}>{dateRangeStr}</Text>
 
         {hasEntries ? (
             <Stack>
-                <Title order={3} mt={30} mb="md" ta="center">Emotional Analysis</Title>
+                {/* <Title order={3} mt={30} mb="md" ta="center">Emotional Analysis</Title> */}
                 <Flex>
                     <WeeklyAnalysis year={year} week_number={week_number} />   
                 </Flex>
@@ -91,7 +91,7 @@ export default function WeeklySummary() {
         )}
 
         <Stack mt={50}>
-            <Title order={2} mt={30} mb="md" ta="center">AI Insight</Title>
+            <Title order={1} mt={30} mb="md" ta="center">AI Insight</Title>
             {error && <Alert color="red">{error}</Alert>}
 
             {suggestion && !showForm ? (
@@ -109,12 +109,12 @@ export default function WeeklySummary() {
                     return (
                       <>
                         <Paper shadow="xs" p="xl" withBorder radius="md" mb={20}>
-                            <Text fw={700} fz="lg" mb={10}> 📌 Summary</Text>
+                            <Text fw={800} fz="lg" mb={10}> 📌 Summary</Text>
                             <Text>{suggestion.summary}</Text>
                         </Paper>
 
                         <Paper shadow="xs" p="xl" withBorder radius="md" mb={20}>
-                            <Text fw={700} fz="lg" mb={10}>💡 Self-Care Tips</Text>
+                            <Text fw={800} fz="lg" mb={10}>💡 Self-Care Tips</Text>
                             <Stack>
                               {parsedTips.map((tip, index) => (
                                 <Text key={index}>	• {tip.trim()}</Text>

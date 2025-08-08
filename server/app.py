@@ -327,7 +327,7 @@ class AiSuggestion(Resource):
         
         entries = JournalEntry.query.filter_by(journal_id=week_journal.id).order_by(JournalEntry.entry_date.asc()).all()
 
-        if len(entries) < 2:
+        if len(entries) < 4:
             return {"message": "Not enough journal entries to generate summary (minimum 4 required)."}, 400
 
         ##WRONG; entries_dicts = jsonify(JournalEntrySchema(many=True).dump(entries))

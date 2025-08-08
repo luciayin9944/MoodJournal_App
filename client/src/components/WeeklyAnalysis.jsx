@@ -69,7 +69,7 @@ export default function WeeklyAnalysis() {
         {!isLoading && data && (
             <Flex gap="xl">
             {/* Mood Score Over Time */}
-              <Paper withBorder shadow="sm" p="md" w={600} h={500}>
+              <Paper withBorder shadow="sm" p="md" w={500} h={450}>
                 <Title order={4} mb="xl">📈 Mood Score Over Time</Title>
                 <ResponsiveContainer width="100%" height={350}>
                   <LineChart data={moodScoreData}>
@@ -83,7 +83,7 @@ export default function WeeklyAnalysis() {
               </Paper>
 
             {/* Mood Tag Frequency */}
-              <Paper withBorder shadow="sm" p="md" w={600} h={500}>
+              <Paper withBorder shadow="sm" p="md" w={500} h={450}>
                 <Title order={4} mb="xl">📊 Mood Tag Frequency</Title>
                 <ResponsiveContainer width="100%" height={350}>
                   <PieChart>
