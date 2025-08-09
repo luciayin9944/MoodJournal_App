@@ -185,7 +185,7 @@ export default function TodayJournal() {
                 expanded={true}
               />
               <Button onClick={() => navigate(`/journals/${currentYear}/${currentWeek}/summary`)}>
-                Weekly AI Insight
+                View AI Insights
               </Button>
             </>
           ) : (

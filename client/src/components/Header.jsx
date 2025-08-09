@@ -22,7 +22,7 @@ export default function Header({ user, setUser }) {
         fw={900}
         size={36}
         c="darkgreen"
-        ff="'Pacifico', cursive" // 改字体
+        ff="'Pacifico', cursive" 
       >
         MoodJournal
       </Text>

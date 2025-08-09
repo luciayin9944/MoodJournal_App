@@ -90,7 +90,7 @@ export default function WeeklySummary() {
         )}
 
         <Stack mt={50}>
-            <Title order={1} mt={30} mb="md" ta="center">AI Insight</Title>
+            <Title order={1} mt={30} mb="md" ta="center">AI Suggestions for You</Title>
             {error && <Alert color="red">{error}</Alert>}
 
             {suggestion && !showForm ? (
@@ -116,7 +116,7 @@ export default function WeeklySummary() {
                             <Text fw={700} fz="lg" mb={10}>💡 Self-Care Tips</Text>
                             <Stack>
                               {parsedTips.map((tip, index) => (
-                                <Text key={index}>	• {tip.trim()}</Text>
+                                <Text key={index}>{tip.trim()}</Text>
                               ))}
                             </Stack>
                         </Card>

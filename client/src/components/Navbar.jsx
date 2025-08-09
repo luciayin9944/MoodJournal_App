@@ -59,7 +59,7 @@ export default function Navbar() {
         style={{ display: 'flex', alignItems: 'center', gap: 8 }}
       >
         <IconRobot size={20} />
-        Weekly AI Insight
+        Weekly AI Insights
       </Button>
       <Button
         variant="outline"

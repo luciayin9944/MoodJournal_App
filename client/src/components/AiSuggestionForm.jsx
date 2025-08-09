@@ -79,7 +79,7 @@ export default function AiSuggestionForm({ year, week_number, onSuccess }) {
               <Stack>
                 <Text>No summary is available for this week.</Text>
                 <Text size="sm" c="dimmed"> (A minimum of 4 journal entries is required to generate an AI-powered reflection.)</Text>
-                <Button mt="xl" onClick={handleGenerate}>✨ Generate AI Suggestion</Button>
+                <Button mt="xl" onClick={handleGenerate}>✨ Generate AI Suggestions</Button>
               </Stack>
             )}
         </Card>

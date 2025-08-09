@@ -125,7 +125,7 @@ export default function JournalList() {
   return (
     <Container>
       <Box mt="lg" mb="xl">
-        <Title order={1} mt={100} mb={30} ta="center">All Journals</Title>
+        <Title order={1} mt={100} mb={30} ta="center">Your Journals</Title>
 
         <Flex justify="center" gap="md" mb="lg">
           <Select

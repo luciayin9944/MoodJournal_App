@@ -13,10 +13,22 @@ const theme= createTheme({
             '#fff0f6', '#ffdeeb', '#fcc2d7', '#faa2c1', '#f783ac',
             '#f06595', '#e64980', '#d6336c', '#c2255c', '#a61e4d'
           ],
-          pastelBlue: [
-            '#e7f5ff', '#d0ebff', '#a5d8ff', '#74c0fc', '#4dabf7',
-            '#339af0', '#228be6', '#1c7ed6', '#1971c2', '#1864ab'
-          ]
+          // pastelBlue: [
+          //   '#e7f5ff', '#d0ebff', '#a5d8ff', '#74c0fc', '#4dabf7',
+          //   '#339af0', '#228be6', '#1c7ed6', '#1971c2', '#1864ab'
+          // ]
+          brandGreen: [
+            '#e6f4ea', 
+            '#b3dfbb',
+            '#80c98d',
+            '#4db35e',
+            '#27ae60', 
+            '#1f8650',
+            '#196c40',
+            '#134d2c',
+            '#0d321b',
+            '#061909',
+          ],
         },
         primaryColor: 'pastelPink',
         defaultRadius: 'lg',
