@@ -22,6 +22,7 @@ export default function JournalList() {
 
   const [selectedYear, setSelectedYear] = useState(null);
   const [selectedMonth, setSelectedMonth] = useState(null);
+  const isFiltering = selectedYear && selectedYear !== 'all' && selectedMonth && selectedMonth !== 'all';
 
 
   const filteredJournals = journals.filter((j) => {
@@ -193,15 +194,17 @@ export default function JournalList() {
             })}
         </Stack>
       </Box>
-
+      
       {/* Pagination Controls */}
-      <Flex justify="center" mt={200} mb="xl">
-        <Pagination
+      {!isFiltering && (
+        <Flex justify="center" mt={200} mb="xl">
+          <Pagination
             total={pages}
             value={page}
             onChange={handlePageChange}
-        />
-      </Flex>
+          />
+        </Flex>
+      )}
     </Container>
   );
 }
