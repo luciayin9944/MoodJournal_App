@@ -19,7 +19,7 @@ This is a secure full-stack mood journaling application built with React (fronte
 
 
 ## 🧠 Tech Stack
-🔧 Backend
+### 🔧 Backend
 - Flask: RESTful API Framework
 - Flask-SQLAlchemy: ORM for database interaction
 - Flask-Migrate: Handles database migrations
@@ -28,7 +28,7 @@ This is a secure full-stack mood journaling application built with React (fronte
 - PostgreSQL/pgAdmin: Database & management
 - OpneAI API: AI-powered mood summaries and self-care tips
 
-🎨 Frontend
+### 🎨 Frontend
 - React: Frontend library
 - Axios: For API requests
 - React Router: Client-side routing
@@ -67,6 +67,7 @@ This is a secure full-stack mood journaling application built with React (fronte
   2. Create an API Key: https://platform.openai.com/settings/organization/api-keys
   3. Update your app configuration:
      - In your Flask app.py (or .env file), set the API key:
+
 ```bash
     from openai import OpenAI
     import os
@@ -79,16 +80,16 @@ This is a secure full-stack mood journaling application built with React (fronte
 
 
  ### Clone the repository
-   ```bash
+
+```bash
    git https://github.com/luciayin9944/MoodJournal_App.git
    cd MoodJournal_App
-  ```
+```
 
 
 ### Set Up the Backend
 
-    ```bash
-
+```bash
     cd server
     python3 -m venv venv
     source venv/bin/activate
@@ -101,19 +102,19 @@ This is a secure full-stack mood journaling application built with React (fronte
     flask db migrate -m "initial migration"
     flask db upgrade head
     python seed.py
-    ```
+```
 
 Run the Flask server:
 
-    ```bash
+```bash
     python run.py
-    ```
+```
 
 ### Start the Frontend
 In another terminal, from the client directory:
 
-    ```bash
+```bash
     cd client
     npm install
     npm run dev
-    ```
+```
