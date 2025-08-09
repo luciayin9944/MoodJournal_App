@@ -1,7 +1,11 @@
+// TodayJournal.jsx
+
+
+
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import {Title, Text, Card, Box, Loader, Button, Notification, Group, Container, Stack} from '@mantine/core';
+import {Title, Text, Card, Box, Loader, Button, Notification, Group, Container, Stack, Badge} from '@mantine/core';
 import dayjs from 'dayjs'; 
 import NewEntryForm from '../components/NewEntryForm';
 import EditEntryForm from '../components/EditEntryForm';
@@ -23,8 +27,6 @@ export default function TodayJournal() {
 
   const currentWeek = dayjs().isoWeek();
   const currentYear = dayjs().year();
-
-
 
   const todayStr = dayjs().format('YYYY-MM-DD');
 
@@ -100,11 +102,24 @@ export default function TodayJournal() {
   const endOfWeek = startOfWeek.endOf('isoWeek');
   const dateRangeStr = `${startOfWeek.format('MMMM D, YYYY')} - ${endOfWeek.format('MMMM D, YYYY')}`;
 
+  const moodEmojis = {
+    1: '😡',
+    2: '😫',
+    3: '😞',
+    4: '😟',
+    5: '😐',
+    6: '🙂',
+    7: '😄',
+    8: '😃',
+    9: '🤩',
+    10: '🥳',
+  };
+
   return (
     <Container>
       <Box p="md">
-        <Title order={2} mt={50} mb={20} ta="center">Today's Mood</Title>
-        <Text size="md" c="dimmed" ta="center" mb={40}>Date: {todayStr}</Text>
+        <Title order={1} mt={50} mb={20} ta="center">Your Mood Today</Title>
+        <Text size="md" c="dimmed" ta="center" mb={40}>📅 {todayStr}</Text>
 
         {loading ? (
           <Loader mt="md" />
@@ -119,12 +134,20 @@ export default function TodayJournal() {
           />
         ) : todayEntry ? (
           <Card mt="md" shadow="sm" padding="md" withBorder>
-            <Text mt="sm">Mood Score: {todayEntry.mood_score}</Text>
-            <Text>Mood Tag: {todayEntry.mood_tag}</Text>
-            <Text mt="sm">Notes:</Text>
-            <Text>{todayEntry.notes}</Text>
+            {/* Mood + Tag */}
+            <Group spacing="sm" mt="sm" mb="xl" align="center">
+              <Badge color="pink" variant="filled" size="xl" radius="xl">
+                Mood {moodEmojis[todayEntry.mood_score] || ''} {todayEntry.mood_score}
+              </Badge>
+              <Badge color="violet" variant="filled" size="xl" radius="xl">
+                🏷️ {todayEntry.mood_tag}
+              </Badge>
+            </Group>
+            <Text size="ml" style={{ whiteSpace: 'pre-wrap', fontStyle: 'italic' }} c="dimmed" mb="sm">
+              📝 {todayEntry.notes || 'No additional notes.'}
+            </Text>
 
-            <Group mt="md">
+            <Group position="right" spacing="xs">
               <Button color="blue" variant="outline" size="xs" onClick={() => setIsEditing(true)}>
                 Edit
               </Button>
@@ -135,8 +158,8 @@ export default function TodayJournal() {
           </Card>
         ) : (
           <Box mt="md">
-            <Text>No entry found for today. Add one below:</Text>
-            <NewEntryForm
+            <Text fw={700}>Oops, no entry found for today. Add one below:</Text>
+            <NewEntryForm mt="lg"
               defaultDate={new Date()}
               editableDate={false}
               onSuccess={handleEntryChange}
@@ -152,7 +175,7 @@ export default function TodayJournal() {
       </Box>
       <Box mt="lg" mb={60}>
         <Stack>
-          <Title order={2} mt={60} mb={30} ta="center">Week's Journals</Title>
+          <Title order={3} mt={50} ta="center">Your Week in Moods</Title>
           <Text size="md" c="dimmed" ta="center" mb={30}>{dateRangeStr}</Text>
           {currentWeekJournal ? (
             <>
@@ -162,141 +185,15 @@ export default function TodayJournal() {
                 expanded={true}
               />
               <Button onClick={() => navigate(`/journals/${currentYear}/${currentWeek}/summary`)}>
-                Weekly Summary
+                View AI Insights
               </Button>
             </>
           ) : (
-              <p>No journals for this week yet.</p>
+              <Text fw={700}>No journals for this week yet.</Text>
           )}
         </Stack>
       </Box>
     </Container>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import { useState, useEffect } from 'react';
-// import axios from 'axios';
-// import {Title, Text, Card, Box, Loader, Button, Notification, Group, Container} from '@mantine/core';
-// import dayjs from 'dayjs'; 
-// import NewEntryForm from '../components/NewEntryForm';
-// import EditEntryForm from '../components/EditEntryForm';
-
-// export default function TodayJournal() {
-//   const [todayEntry, setTodayEntry] = useState(null);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState(null);
-//   const [isEditing, setIsEditing] = useState(false);
-
-//   const todayStr = dayjs().format('YYYY-MM-DD');
-
-//   const fetchTodayEntry = async () => {
-//     setLoading(true);
-//     try {
-//       const res = await axios.get(`/entries/today`, {
-//         headers: {
-//           Authorization: `Bearer ${localStorage.getItem('token')}`,
-//         },
-//       });
-//       setTodayEntry(res.data || null);
-//     } catch (err) {
-//       if (err.response?.status === 404) {
-//         setTodayEntry(null); // no entry = show create form
-//         setError(null);
-//       } else {
-//         setError(err.response?.data?.error || 'Failed to load entry.');
-//       }
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     fetchTodayEntry();
-//   }, []);
-
-//   const handleDelete = async () => {
-//     try {
-//       await axios.delete(`/entries/${todayEntry.id}`, {
-//         headers: {
-//           Authorization: `Bearer ${localStorage.getItem('token')}`,
-//         },
-//       });
-//       setTodayEntry(null);
-//       setIsEditing(false);
-//     } catch (err) {
-//       setError(err.response?.data?.error || 'Failed to delete entry.');
-//     }
-//   };
-
-//   return (
-//     <Container>
-//       <Box p="md">
-//         <Title order={2} mt={50} mb={20} ta="center">Today's Journal</Title>
-//         <Text size="md" c="dimmed" ta="center" mb={40}>Date: {todayStr}</Text>
-
-//         {loading ? (
-//           <Loader mt="md" />
-//         ) : isEditing && todayEntry ? (
-//           <EditEntryForm
-//             entry={todayEntry}
-//             onUpdate={(updatedEntry) => {
-//               setTodayEntry(updatedEntry);
-//               setIsEditing(false);
-//             }}
-//           />
-//         ) : todayEntry ? (
-//           <Card mt="md" shadow="sm" padding="md" withBorder>
-//             <Text mt="sm">Mood Score: {todayEntry.mood_score}</Text>
-//             <Text>Mood Tag: {todayEntry.mood_tag}</Text>
-//             <Text mt="sm">Notes:</Text>
-//             <Text>{todayEntry.notes}</Text>
-
-//             <Group mt="md">
-//               <Button color="blue" variant="outline" size="xs" onClick={() => setIsEditing(true)}>
-//                 Edit
-//               </Button>
-//               <Button color="red" variant="outline" size="xs" onClick={handleDelete}>
-//                 Delete
-//               </Button>
-//             </Group>
-//           </Card>
-//         ) : (
-//           <Box mt="md">
-//             <Text>No entry found for today. Add one below:</Text>
-//             <NewEntryForm
-//               defaultDate={new Date()}
-//               editableDate={false}
-//               onSuccess={() => {
-//                 fetchTodayEntry();
-//               }}
-//             />
-//           </Box>
-//         )}
-
-//         {error && (
-//           <Notification color="red" onClose={() => setError(null)} mt="md">
-//             {error}
-//           </Notification>
-//         )}
-//       </Box>
-//     </Container>
-//   );
-// }
-
 

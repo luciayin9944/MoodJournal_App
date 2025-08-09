@@ -26,11 +26,11 @@ export default function Dashboard({ user }) {
 
   return (
     <Container>
-      <Text mt={40} mb={30}>Welcome, {user.username}!</Text>
+      <Text fw={700} mt={40} mb={30}>Welcome, {user.username}!</Text>
 
       <Stack>
         <Box>
-          <Title order={2} ta="center" mb="xl">{currentYear}</Title>
+          <Title order={1} ta="center" mb="xl">{currentYear}</Title>
           <Slider
             min={1}
             max={12}
@@ -46,14 +46,14 @@ export default function Dashboard({ user }) {
         </Box>
         <Box>
           <MonthlyWordCloud year={currentYear} month={selectedMonth} />
-          <Title order={3} mt={20} mb={40} ta="center">
-            Your Mood Keywords in {monthLabels[selectedMonth - 1]}
+          <Title order={4} c="lightpink" mt={20} mb={40} ta="center">
+            🔑 Your Mood Keywords in {monthLabels[selectedMonth - 1]}
           </Title>
         </Box>
         <Box>
           <MonthlyMoodScores year={currentYear} month={selectedMonth} />
-          <Title order={3} mt={20} mb={30} ta="center">
-            Your Mood Journey in {monthLabels[selectedMonth - 1]}
+          <Title order={4} c="lightpink" mt={20} mb={30} ta="center">
+            📈 Your Mood Journey in {monthLabels[selectedMonth - 1]}
           </Title>
         </Box>
       </Stack>

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { Alert, Title, Text, Stack, Button, Loader, Flex, Container, Paper} from '@mantine/core';
+import { Alert, Title, Text, Stack, Button, Loader, Flex, Container, Paper, Card} from '@mantine/core';
 import AiSuggestionForm from "../components/AiSuggestionForm";
 import WeeklyAnalysis from "../components/WeeklyAnalysis";
 import dayjs from 'dayjs';
@@ -73,12 +73,11 @@ export default function WeeklySummary() {
 
     return (
     <Container>
-        <Title order={2} mt={50} mb={10} ta="center">Weekly Summary</Title>
+        <Title order={3} mt={50} mb={10} ta="center">Your Week's Highlights</Title>
         <Text size="md" c="dimmed" ta="center" mb={30}>{dateRangeStr}</Text>
 
         {hasEntries ? (
             <Stack>
-                <Title order={3} mt={30} mb="md" ta="center">Emotional Analysis</Title>
                 <Flex>
                     <WeeklyAnalysis year={year} week_number={week_number} />   
                 </Flex>
@@ -91,7 +90,7 @@ export default function WeeklySummary() {
         )}
 
         <Stack mt={50}>
-            <Title order={2} mt={30} mb="md" ta="center">AI Insight</Title>
+            <Title order={1} mt={30} mb="md" ta="center">AI Suggestions for You</Title>
             {error && <Alert color="red">{error}</Alert>}
 
             {suggestion && !showForm ? (
@@ -103,24 +102,24 @@ export default function WeeklySummary() {
                         parsedTips = JSON.parse(suggestion.selfcare_tips);
                     } catch (e) {
                         console.error('Failed to load suggestion', e);
-                        parsedTips = suggestion.selfcare_tips.split('\n');  // fallback
+                        parsedTips = suggestion.selfcare_tips.split('\n'); 
                     }
 
                     return (
                       <>
-                        <Paper shadow="xs" p="xl" withBorder radius="md" mb={20}>
+                        <Card shadow="sm" p="xl" withBorder radius="md" mb={20} style={{ backgroundColor: '#fff8f8' }}>
                             <Text fw={700} fz="lg" mb={10}> 📌 Summary</Text>
                             <Text>{suggestion.summary}</Text>
-                        </Paper>
+                        </Card>
 
-                        <Paper shadow="xs" p="xl" withBorder radius="md" mb={20}>
+                        <Card shadow="sm" p="xl" withBorder radius="md" mb={20} style={{ backgroundColor: '#fff8f8' }}>
                             <Text fw={700} fz="lg" mb={10}>💡 Self-Care Tips</Text>
                             <Stack>
                               {parsedTips.map((tip, index) => (
-                                <Text key={index}>	• {tip.trim()}</Text>
+                                <Text key={index}>{tip.trim()}</Text>
                               ))}
                             </Stack>
-                        </Paper>
+                        </Card>
                       </>
                     );
                   })()}

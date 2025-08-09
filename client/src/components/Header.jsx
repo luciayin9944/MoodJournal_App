@@ -2,6 +2,8 @@
 
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Group, Flex, Text } from '@mantine/core';
+import { IconUser } from '@tabler/icons-react';
+
 
 export default function Header({ user, setUser }) {
   const navigate = useNavigate();
@@ -14,17 +16,29 @@ export default function Header({ user, setUser }) {
 
   return (
     <Flex justify="space-between" align="center" h="100%" px="md">
-      <Text component={Link} to="/dashboard" fw={700} size="lg" c="blue">
+      <Text
+        component={Link}
+        to="/dashboard"
+        fw={900}
+        size={36}
+        c="darkgreen"
+        ff="'Pacifico', cursive" 
+      >
         MoodJournal
       </Text>
 
       <Group gap="sm">
-        {user && <Text size="sm">{user.username}</Text>}
+        {user && (
+          <>
+            <IconUser size={18} />
+            <Text size="sm">{user.username}</Text>
+          </>
+        )}
 
         <Button
           variant="light"
           size="xs"
-          color="blue"
+          color="darkgreen"
           onClick={handleLogoutClick}
         >
           Logout

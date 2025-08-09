@@ -26,13 +26,10 @@ export default function AiSuggestionForm({ year, week_number, onSuccess }) {
                 headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
-            }
-            );
-
+            });
             const { summary, selfcare_tips } = response.data;
 
             let parsedTips;
-
             try {
                 parsedTips = JSON.parse(selfcare_tips);  // parse JSON string to array
             } catch {
@@ -53,7 +50,7 @@ export default function AiSuggestionForm({ year, week_number, onSuccess }) {
     };
 
     return (
-        <Card shadow="sm" padding="lg" radius="md" withBorder mb="xl">
+        <Card shadow="sm" p="md" radius="md" withBorder style={{ backgroundColor: '#fff8f8' }}>
             {error && (
                 <Alert icon={<IconAlertCircle size={16} />} color="red" mb="md">
                 {error}
@@ -80,8 +77,9 @@ export default function AiSuggestionForm({ year, week_number, onSuccess }) {
               </>
             ) : (
               <Stack>
-                <Text>No summary is available for this week. A minimum of 4 journal entries is required to generate an AI-powered reflection.</Text>
-                <Button onClick={handleGenerate}>✨ Generate AI Suggestion</Button>
+                <Text>No summary is available for this week.</Text>
+                <Text size="sm" c="dimmed"> (A minimum of 4 journal entries is required to generate an AI-powered reflection.)</Text>
+                <Button mt="xl" onClick={handleGenerate}>✨ Generate AI Suggestions</Button>
               </Stack>
             )}
         </Card>

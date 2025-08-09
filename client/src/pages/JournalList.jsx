@@ -22,6 +22,7 @@ export default function JournalList() {
 
   const [selectedYear, setSelectedYear] = useState(null);
   const [selectedMonth, setSelectedMonth] = useState(null);
+  const isFiltering = selectedYear && selectedYear !== 'all' && selectedMonth && selectedMonth !== 'all';
 
 
   const filteredJournals = journals.filter((j) => {
@@ -125,7 +126,7 @@ export default function JournalList() {
   return (
     <Container>
       <Box mt="lg" mb="xl">
-        <Title order={2} mt={100} mb={30} ta="center">All Journals</Title>
+        <Title order={1} mt={100} mb={30} ta="center">Your Journals</Title>
 
         <Flex justify="center" gap="md" mb="lg">
           <Select
@@ -176,7 +177,7 @@ export default function JournalList() {
                       </Text>
                     </Group>
 
-                    <Button onClick={() => navigate(`/journals/${journal.year}/${journal.week_number}/summary`)}>
+                    <Button variant="light" onClick={() => navigate(`/journals/${journal.year}/${journal.week_number}/summary`)}>
                       Summary
                     </Button>
                   </Flex>
@@ -193,15 +194,17 @@ export default function JournalList() {
             })}
         </Stack>
       </Box>
-
+      
       {/* Pagination Controls */}
-      <Flex justify="center" mt={200} mb="xl">
-        <Pagination
+      {!isFiltering && (
+        <Flex justify="center" mt={200} mb="xl">
+          <Pagination
             total={pages}
             value={page}
             onChange={handlePageChange}
-        />
-      </Flex>
+          />
+        </Flex>
+      )}
     </Container>
   );
 }

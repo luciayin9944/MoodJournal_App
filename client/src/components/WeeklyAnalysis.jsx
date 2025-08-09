@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Container, Paper, Text, Loader, Alert, Title, Stack, Flex, SimpleGrid } from "@mantine/core";
+import { Container, Paper, Text, Loader, Alert, Title, Stack, Flex } from "@mantine/core";
 import { IconAlertCircle } from "@tabler/icons-react";
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartTooltip, ResponsiveContainer,
   PieChart, Pie, Cell, Legend } from "recharts";
@@ -69,8 +69,8 @@ export default function WeeklyAnalysis() {
         {!isLoading && data && (
             <Flex gap="xl">
             {/* Mood Score Over Time */}
-              <Paper withBorder shadow="sm" p="md" w={600} h={500}>
-                <Title order={4} mb="xl">📈 Mood Score Over Time</Title>
+              <Paper withBorder shadow="sm" p="md" w={500} h={450}>
+                <Title order={5} c="lightpink" mb="xl">📈 Mood Score Over Time</Title>
                 <ResponsiveContainer width="100%" height={350}>
                   <LineChart data={moodScoreData}>
                     <CartesianGrid strokeDasharray="3 3" />
@@ -83,8 +83,8 @@ export default function WeeklyAnalysis() {
               </Paper>
 
             {/* Mood Tag Frequency */}
-              <Paper withBorder shadow="sm" p="md" w={600} h={500}>
-                <Title order={4} mb="xl">📊 Mood Tag Frequency</Title>
+              <Paper withBorder shadow="sm" p="md" w={500} h={450}>
+                <Title order={5} c="lightpink" mb="xl">📊 Mood Tag Frequency</Title>
                 <ResponsiveContainer width="100%" height={350}>
                   <PieChart>
                     <Pie

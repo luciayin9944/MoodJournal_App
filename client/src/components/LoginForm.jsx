@@ -1,5 +1,6 @@
 // src/components/LoginForm.jsx
-import React, { useState } from 'react';
+
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, TextInput, PasswordInput, Paper, Group, Button, Stack } from '@mantine/core';
 import { useForm } from '@mantine/form';
@@ -43,7 +44,6 @@ export default function Login({ onLogin }) {
     }
 
     return (
-
         <Paper shadow="md" radius="md" p="xl" withBorder maw={400} w="100%">
             <form onSubmit={form.onSubmit(handleSubmit)}>
                 <Stack>
@@ -61,8 +61,8 @@ export default function Login({ onLogin }) {
                     />
                 </Stack>
                 <Group justify="flex-end" mt="md">
-                                <Button type="submit" loading={isLoading}>Login</Button>
-                            </Group>
+                    <Button variant="light" type="submit" color="darkgreen" loading={isLoading}>Login</Button>
+                </Group>
                 
                 {errors.length > 0 && (
                     <ul style={{ color: 'red' }}>
