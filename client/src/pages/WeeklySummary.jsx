@@ -78,7 +78,6 @@ export default function WeeklySummary() {
 
         {hasEntries ? (
             <Stack>
-                {/* <Title order={3} mt={30} mb="md" ta="center">Emotional Analysis</Title> */}
                 <Flex>
                     <WeeklyAnalysis year={year} week_number={week_number} />   
                 </Flex>
@@ -103,7 +102,7 @@ export default function WeeklySummary() {
                         parsedTips = JSON.parse(suggestion.selfcare_tips);
                     } catch (e) {
                         console.error('Failed to load suggestion', e);
-                        parsedTips = suggestion.selfcare_tips.split('\n');  // fallback
+                        parsedTips = suggestion.selfcare_tips.split('\n'); 
                     }
 
                     return (

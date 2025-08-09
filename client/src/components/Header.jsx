@@ -2,6 +2,8 @@
 
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Group, Flex, Text } from '@mantine/core';
+import { IconUser } from '@tabler/icons-react';
+
 
 export default function Header({ user, setUser }) {
   const navigate = useNavigate();
@@ -26,7 +28,12 @@ export default function Header({ user, setUser }) {
       </Text>
 
       <Group gap="sm">
-        {user && <Text size="sm">{user.username}</Text>}
+        {user && (
+          <>
+            <IconUser size={18} />
+            <Text size="sm">{user.username}</Text>
+          </>
+        )}
 
         <Button
           variant="light"
