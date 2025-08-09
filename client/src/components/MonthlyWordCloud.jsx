@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Container, Box, Card, Text, List, Loader, Alert, Stack } from "@mantine/core";
+import { Container, Box, Card, Text, Loader, Alert, Stack } from "@mantine/core";
 import { IconAlertCircle } from "@tabler/icons-react";
 import WordCloud from 'react-d3-cloud';
 
@@ -70,9 +70,7 @@ export default function MonthlyWordCloud({ year, month }) {
           >
             <WordCloud
               data={data}
-              // data={testData}
               fontSizeMapper={fontSizeMapper}
-              // width={window.innerWidth * 0.8}
               width={800}
               height={360}
             />

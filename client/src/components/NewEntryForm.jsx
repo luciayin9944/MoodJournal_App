@@ -74,21 +74,21 @@ export default function NewEntryForm({ defaultDate = new Date(), editableDate = 
           />
         )}
         <Textarea
-          label="Notes"
+          label="📝 Notes"
           placeholder="What did you do or feel today?"
           minRows={2}
           required
           {...form.getInputProps('notes')}
         />
         <NumberInput
-          label="Mood Score (1-10)"
+          label="⭐ Mood Score (1-10)"
           min={1}
           max={10}
           required
           {...form.getInputProps('mood_score')}
         />
         <Select
-          label="Mood Tag"
+          label="🏷️ Mood Tag"
           data={moodTags}
           required
           {...form.getInputProps('mood_tag')}

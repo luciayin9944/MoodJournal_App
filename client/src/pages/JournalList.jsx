@@ -176,7 +176,7 @@ export default function JournalList() {
                       </Text>
                     </Group>
 
-                    <Button onClick={() => navigate(`/journals/${journal.year}/${journal.week_number}/summary`)}>
+                    <Button variant="light" onClick={() => navigate(`/journals/${journal.year}/${journal.week_number}/summary`)}>
                       Summary
                     </Button>
                   </Flex>

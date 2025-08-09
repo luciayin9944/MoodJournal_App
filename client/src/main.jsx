@@ -4,20 +4,6 @@ import { BrowserRouter } from 'react-router-dom'
 import { createTheme, MantineProvider } from '@mantine/core'
 import App from './App.jsx'
 
-// const theme= createTheme({
-//   colorScheme: 'dark',
-//   primaryColor: 'violet',
-//   fontFamily: 'Rubik, sans-serif',
-//   defaultRadius: 'md',
-//   headings: {
-//     fontFamily: 'Roboto Slab, serif',
-//     sizes: {
-//       h1: { fontSize: '2.8rem' },
-//       h2: { fontSize: '2.2rem' },
-//     },
-//   },
-// });
-
 
 const theme= createTheme({
         fontFamily: 'Nunito, sans-serif',
@@ -38,7 +24,7 @@ const theme= createTheme({
           Button: {
             styles: {
               root: {
-                borderRadius: '999px', // 圆形按钮
+                borderRadius: '999px', 
                 fontWeight: 600,
                 transition: 'transform 0.15s ease',
                 '&:hover': {

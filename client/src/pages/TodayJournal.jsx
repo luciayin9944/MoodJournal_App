@@ -5,7 +5,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import {Title, Text, Card, Box, Loader, Button, Notification, Group, Container, Stack} from '@mantine/core';
+import {Title, Text, Card, Box, Loader, Button, Notification, Group, Container, Stack, Badge} from '@mantine/core';
 import dayjs from 'dayjs'; 
 import NewEntryForm from '../components/NewEntryForm';
 import EditEntryForm from '../components/EditEntryForm';
@@ -102,11 +102,24 @@ export default function TodayJournal() {
   const endOfWeek = startOfWeek.endOf('isoWeek');
   const dateRangeStr = `${startOfWeek.format('MMMM D, YYYY')} - ${endOfWeek.format('MMMM D, YYYY')}`;
 
+  const moodEmojis = {
+    1: '😡',
+    2: '😫',
+    3: '😞',
+    4: '😟',
+    5: '😐',
+    6: '🙂',
+    7: '😄',
+    8: '😃',
+    9: '🤩',
+    10: '🥳',
+  };
+
   return (
     <Container>
       <Box p="md">
-        <Title order={2} mt={50} mb={20} ta="center">Today's Mood</Title>
-        <Text size="md" c="dimmed" ta="center" mb={40}>Date: {todayStr}</Text>
+        <Title order={1} mt={50} mb={20} ta="center">Your Mood Today</Title>
+        <Text size="md" c="dimmed" ta="center" mb={40}>📅 {todayStr}</Text>
 
         {loading ? (
           <Loader mt="md" />
@@ -121,12 +134,20 @@ export default function TodayJournal() {
           />
         ) : todayEntry ? (
           <Card mt="md" shadow="sm" padding="md" withBorder>
-            <Text mt="sm">Mood Score: {todayEntry.mood_score}</Text>
-            <Text>Mood Tag: {todayEntry.mood_tag}</Text>
-            <Text mt="sm">Notes:</Text>
-            <Text>{todayEntry.notes}</Text>
+            {/* Mood + Tag */}
+            <Group spacing="sm" mt="sm" mb="xl" align="center">
+              <Badge color="pink" variant="filled" size="xl" radius="xl">
+                Mood {moodEmojis[todayEntry.mood_score] || ''} {todayEntry.mood_score}
+              </Badge>
+              <Badge color="violet" variant="filled" size="xl" radius="xl">
+                🏷️ {todayEntry.mood_tag}
+              </Badge>
+            </Group>
+            <Text size="ml" style={{ whiteSpace: 'pre-wrap', fontStyle: 'italic' }} c="dimmed" mb="sm">
+              📝 {todayEntry.notes || 'No additional notes.'}
+            </Text>
 
-            <Group mt="md">
+            <Group position="right" spacing="xs">
               <Button color="blue" variant="outline" size="xs" onClick={() => setIsEditing(true)}>
                 Edit
               </Button>
@@ -138,7 +159,7 @@ export default function TodayJournal() {
         ) : (
           <Box mt="md">
             <Text fw={700}>Oops, no entry found for today. Add one below:</Text>
-            <NewEntryForm
+            <NewEntryForm mt="lg"
               defaultDate={new Date()}
               editableDate={false}
               onSuccess={handleEntryChange}
@@ -154,7 +175,7 @@ export default function TodayJournal() {
       </Box>
       <Box mt="lg" mb={60}>
         <Stack>
-          <Title order={2} mt={60} mb={10} ta="center">Week's Journals</Title>
+          <Title order={3} mt={50} ta="center">Your Week in Moods</Title>
           <Text size="md" c="dimmed" ta="center" mb={30}>{dateRangeStr}</Text>
           {currentWeekJournal ? (
             <>
@@ -164,7 +185,7 @@ export default function TodayJournal() {
                 expanded={true}
               />
               <Button onClick={() => navigate(`/journals/${currentYear}/${currentWeek}/summary`)}>
-                Weekly Summary
+                Weekly AI Insight
               </Button>
             </>
           ) : (

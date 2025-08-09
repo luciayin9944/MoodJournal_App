@@ -85,7 +85,7 @@ export default function SignupForm({ onLogin }) {
           </Stack>
 
           <Group justify="flex-end" mt="md">
-            <Button type="submit" loading={isLoading}>Sign Up</Button>
+            <Button variant="light" type="submit" color="darkgreen" loading={isLoading}>Sign Up</Button>
           </Group>
 
           {errors.length > 0 && (

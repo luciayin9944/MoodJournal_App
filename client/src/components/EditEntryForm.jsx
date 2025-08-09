@@ -50,7 +50,7 @@ export default function EditEntryForm({ entry, onUpdate }) {
       )}
 
       <NumberInput
-        label="Mood Score (1-10)"
+        label="⭐ Mood Score (1-10)"
         value={moodScore}
         onChange={setMoodScore}
         min={1}
@@ -58,7 +58,7 @@ export default function EditEntryForm({ entry, onUpdate }) {
       />
 
       <Select
-        label="Mood Tag"
+        label="🏷️ Mood Tag"
         data={moodTags}
         value={moodTag}
         onChange={setMoodTag}
@@ -66,7 +66,7 @@ export default function EditEntryForm({ entry, onUpdate }) {
       />
 
       <Textarea
-        label="Notes"
+        label="📝 Notes"
         placeholder="Write your thoughts here..."
         value={notes}
         onChange={(e) => setNotes(e.currentTarget.value)}

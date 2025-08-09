@@ -1,7 +1,7 @@
 // Login.jsx
 
 import { useState } from "react";
-import { Box, Container, Title, Text, Button, Divider, Stack, Paper } from "@mantine/core";
+import { Box, Container, Title, Text, Button, Divider, Stack, } from "@mantine/core";
 import SignupForm from "../components/SignupForm";
 import LoginForm from "../components/LoginForm";
 
@@ -14,7 +14,12 @@ export default function Login({ onLogin }) {
       <Stack spacing="md" align="center">
         <Box w="100%">
           <Stack spacing="xs" align="center">
-            <Title order={1} ta="center">
+            <Title
+              fw={900}
+              size={36}
+              c="darkgreen"
+              ff="'Pacifico', cursive" 
+            >
                 Mood Journal
             </Title>
 
@@ -38,7 +43,7 @@ export default function Login({ onLogin }) {
                 <Button
                     variant="subtle"
                     size="xs"
-                    color="blue"
+                    color="darkgreen"
                     onClick={() => setShowLogin(false)}
                 >
                     Sign Up
@@ -50,7 +55,7 @@ export default function Login({ onLogin }) {
                 <Button
                     variant="subtle"
                     size="xs"
-                    color="blue"
+                    color="darkgreen"
                     onClick={() => setShowLogin(true)}
                 >
                     Log In

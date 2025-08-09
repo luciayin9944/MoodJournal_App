@@ -14,7 +14,14 @@ export default function Header({ user, setUser }) {
 
   return (
     <Flex justify="space-between" align="center" h="100%" px="md">
-      <Text component={Link} to="/dashboard" fw={700} size="lg" c="blue">
+      <Text
+        component={Link}
+        to="/dashboard"
+        fw={900}
+        size={36}
+        c="darkgreen"
+        ff="'Pacifico', cursive" // 改字体
+      >
         MoodJournal
       </Text>
 
@@ -24,7 +31,7 @@ export default function Header({ user, setUser }) {
         <Button
           variant="light"
           size="xs"
-          color="blue"
+          color="darkgreen"
           onClick={handleLogoutClick}
         >
           Logout
