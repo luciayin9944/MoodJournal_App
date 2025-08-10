@@ -31,7 +31,6 @@ export default function MonthlyWordCloud({ year, month }) {
         });
         console.log('Word cloud data:', response.data.word_cloud);
         
-        // const cleanedData = response.data.word_cloud.map(({ text, value }) => ({ text, value }));
         const cleanedData = response.data.word_cloud
         .filter(({ text, value }) => text?.trim() && +value > 0)  
         .map(({ text, value }) => ({ 
