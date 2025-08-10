@@ -22,15 +22,6 @@ export default function Navbar() {
       px="md"
       mt={50}
     >
-      {/* <Button
-        variant="outline"
-        color="grey"
-        size="xl"
-        leftIcon={<IconHome size={20} />}
-        onClick={() => navigate('/dashboard')}
-      >
-        Dashboard
-      </Button> */}
       <Button
         variant="outline"
         color="grey"
