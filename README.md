@@ -63,7 +63,7 @@ This is a secure full-stack mood journaling application built with React (fronte
 
  ###  Prerequisite 2: Resgister OpenAI API key
 
-  1. LLog in / Sign up at OpenAI. https://auth.openai.com/log-in
+  1. Log in / Sign up at OpenAI. https://auth.openai.com/log-in
   2. Create an API Key: https://platform.openai.com/settings/organization/api-keys
   3. Update your app configuration:
      - In your Flask resources/ai_suggestion.py (or .env file), set the API key:
