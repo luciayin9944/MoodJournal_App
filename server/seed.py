@@ -45,8 +45,8 @@ def seed_data():
         journal_id=journal_25.id,
         summary="Week started strong with happiness and productivity, dipped mid-week due to loneliness but ended joyfully and peacefully.",
         selfcare_tips=json.dumps([
-            "Reach out to friends when feeling lonely, even for a short call.",
-            "Maintain consistent sleep habits to stay energized during the week."
+            "1. Reach out to friends when feeling lonely, even for a short call.",
+            "2. Maintain consistent sleep habits to stay energized during the week."
         ])
     )
     db.session.add(suggestion_25)
@@ -75,8 +75,8 @@ def seed_data():
         journal_id=journal_26.id,
         summary="Productivity was high but anxiety and stress spiked mid-week. Ending the week excited is a positive sign.",
         selfcare_tips=json.dumps([
-            "Break large tasks into smaller ones to reduce stress.",
-            "Allow time to recharge on weekends to prevent burnout."
+            "1. Break large tasks into smaller ones to reduce stress.",
+            "2. Allow time to recharge on weekends to prevent burnout."
         ])
     )
     db.session.add(suggestion_26)
@@ -105,8 +105,8 @@ def seed_data():
         journal_id=journal_27.id,
         summary="Despite emotional lows early in the week, things improved with resolution, joy, and rest.",
         selfcare_tips=json.dumps([
-            "Try journaling after emotional conflict to gain perspective.",
-            "Maintain healthy sleep routines to stay emotionally balanced."
+            "1. Try journaling after emotional conflict to gain perspective.",
+            "2. Maintain healthy sleep routines to stay emotionally balanced."
         ])
     )
     db.session.add(suggestion_27)
@@ -135,8 +135,8 @@ def seed_data():
         journal_id=journal_28.id,
         summary="The week began with sadness and stress but ended with productivity and relaxation. A good recovery trend.",
         selfcare_tips=json.dumps([
-            "Keep practicing gratitude and hopeful thinking.",
-            "Use relaxation techniques like deep breathing or nature walks mid-week when feeling overwhelmed."
+            "1. Keep practicing gratitude and hopeful thinking.",
+            "2. Use relaxation techniques like deep breathing or nature walks mid-week when feeling overwhelmed."
         ])
     )
     db.session.add(suggestion_28)
@@ -165,8 +165,8 @@ def seed_data():
         journal_id=journal_29.id,
         summary="The emotional trend seems to fluctuate throughout the week, with moments of tiredness, productivity, overwhelm, joy with friends, low energy, clarity after hiking, and anxiety about work deadlines.",
         selfcare_tips=json.dumps([
-            "Practice mindfulness techniques to manage feelings of overwhelm and anxiety. Take a few minutes each day to focus on your breath and bring yourself back to the present moment.",
-            " Prioritize self-care activities that bring you joy and energy, such as spending more time with friends, engaging in activities you love, or getting regular exercise to boost your mood and energy levels."
+            "1. Practice mindfulness techniques to manage feelings of overwhelm and anxiety. Take a few minutes each day to focus on your breath and bring yourself back to the present moment.",
+            "2. Prioritize self-care activities that bring you joy and energy, such as spending more time with friends, engaging in activities you love, or getting regular exercise to boost your mood and energy levels."
         ])
     )
     db.session.add(suggestion_29)
@@ -195,9 +195,9 @@ def seed_data():
         journal_id=journal_30.id,
         summary="The week started peacefully and productively but ended with some worry. Balancing mindfulness and productivity helped, but stress resurfaced.",
         selfcare_tips=json.dumps([
-            "Maintain daily mindfulness practices, such as morning meditation or evening journaling, to help stabilize your mood and maintain calm through the week.",
-            "When experiencing worry or mental overload, break your workload into small, manageable tasks, and use tools like time blocking or to-do lists to regain clarity and control.",
-            "Make time for regular connection with loved ones, especially on stressful days. Talking to a supportive friend or family member can help reduce worry and remind you of your support system."
+            "1. Maintain daily mindfulness practices, such as morning meditation or evening journaling, to help stabilize your mood and maintain calm through the week.",
+            "2. When experiencing worry or mental overload, break your workload into small, manageable tasks, and use tools like time blocking or to-do lists to regain clarity and control.",
+            "3. Make time for regular connection with loved ones, especially on stressful days. Talking to a supportive friend or family member can help reduce worry and remind you of your support system."
         ])
     )
     db.session.add(suggestion_30)
@@ -226,9 +226,9 @@ def seed_data():
         journal_id=journal_31.id,
         summary="This week was a rollercoaster: frustration mid-week, recovery, then solid wins and reflection. Good resilience shown.",
         selfcare_tips=json.dumps([
-            "Recognize and celebrate your small and large accomplishments. Writing them down at the end of the day can build confidence and motivation.",
-            "During periods of frustration or technical blockers, step away briefly to reset. A short walk or deep breathing session can improve focus and reduce stress.",
-            "Balance your drive with rest. Incorporate intentional rest on weekends—unplug from work, limit screen time, and engage in relaxing hobbies that restore your energy."
+            "1. Recognize and celebrate your small and large accomplishments. Writing them down at the end of the day can build confidence and motivation.",
+            "2. During periods of frustration or technical blockers, step away briefly to reset. A short walk or deep breathing session can improve focus and reduce stress.",
+            "3. Balance your drive with rest. Incorporate intentional rest on weekends—unplug from work, limit screen time, and engage in relaxing hobbies that restore your energy."
         ])
     )
     db.session.add(suggestion_31)
@@ -249,6 +249,105 @@ def seed_data():
         JournalEntry(journal_id=journal_32.id, entry_date=date(2025, 8, 6), mood_tag="Excited", mood_score=8, notes="Pushed through a long day of coding. The project is nearly done, feeling tired but excited to see it coming together.")
     ]
     db.session.add_all(entries_32)
+    db.session.commit()
+
+
+    ## === Week 33 ===
+    journal_33 = Journal(
+        week_number=33,
+        year=2025,
+        user_id=user.id
+    )
+    db.session.add(journal_33)
+    db.session.commit()
+
+    entries_33 = [
+        JournalEntry(journal_id=journal_33.id, entry_date=date(2025, 8, 11), mood_tag="Focused", mood_score=7, notes="Worked through tasks steadily."),
+        JournalEntry(journal_id=journal_33.id, entry_date=date(2025, 8, 12), mood_tag="Tired", mood_score=4, notes="Lacked energy, tough to concentrate."),
+        JournalEntry(journal_id=journal_33.id, entry_date=date(2025, 8, 13), mood_tag="Other", mood_score=6, notes="Positive feedback boosted confidence."),
+        JournalEntry(journal_id=journal_33.id, entry_date=date(2025, 8, 14), mood_tag="Productive", mood_score=8, notes="Good momentum. Finished key tasks."),
+        JournalEntry(journal_id=journal_33.id, entry_date=date(2025, 8, 15), mood_tag="Calm", mood_score=7, notes="Smooth day, managed stress better."),
+        JournalEntry(journal_id=journal_33.id, entry_date=date(2025, 8, 16), mood_tag="Relaxed", mood_score=6, notes="Took some downtime, recharged."),
+        JournalEntry(journal_id=journal_33.id, entry_date=date(2025, 8, 17), mood_tag="Happy", mood_score=8, notes="Looked back at progress. Feeling steady.")
+    ]
+    db.session.add_all(entries_33)
+
+    suggestion_33 = Suggestion(
+        journal_id=journal_33.id,
+        summary="The week showed ups and downs in energy, but consistent progress and feedback helped you maintain momentum.",
+        selfcare_tips=json.dumps([
+            "1. Build a short daily wind-down routine to improve sleep quality and energy levels.",
+            "2. When tired, try shifting to lighter tasks instead of forcing focus—this keeps productivity flowing.",
+            "3. Keep acknowledging positive feedback and progress; it reinforces confidence and motivation."
+        ])
+    )
+    db.session.add(suggestion_33)
+    db.session.commit()
+
+
+    ## === Week 34 ===
+    journal_34 = Journal(
+        week_number=34,
+        year=2025,
+        user_id=user.id
+    )
+    db.session.add(journal_34)
+    db.session.commit()
+
+    entries_34 = [
+        JournalEntry(journal_id=journal_34.id, entry_date=date(2025, 8, 18), mood_tag="Hopeful", mood_score=7, notes="Started week with new goals."),
+        JournalEntry(journal_id=journal_34.id, entry_date=date(2025, 8, 19), mood_tag="Overwhelmed", mood_score=5, notes="Ran into unexpected issues."),
+        JournalEntry(journal_id=journal_34.id, entry_date=date(2025, 8, 20), mood_tag="Excited", mood_score=6, notes="Pushed through difficulties."),
+        JournalEntry(journal_id=journal_34.id, entry_date=date(2025, 8, 21), mood_tag="Productive", mood_score=8, notes="Breakthrough with problem-solving."),
+        JournalEntry(journal_id=journal_34.id, entry_date=date(2025, 8, 22), mood_tag="Other", mood_score=7, notes="Wrapped up tasks successfully."),
+        JournalEntry(journal_id=journal_34.id, entry_date=date(2025, 8, 23), mood_tag="Calm", mood_score=6, notes="Enjoyed a slow day."),
+        JournalEntry(journal_id=journal_34.id, entry_date=date(2025, 8, 24), mood_tag="Calm", mood_score=8, notes="Weekend reflection, steady mood.")
+    ]
+    db.session.add_all(entries_34)
+
+    suggestion_34 = Suggestion(
+        journal_id=journal_34.id,
+        summary="Challenges tested your patience, but persistence and breakthroughs made the week successful overall.",
+        selfcare_tips=json.dumps([
+            "1. When problems arise, pause to brainstorm multiple solutions instead of sticking to one path.",
+            "2. Use quick stress-relief techniques (like stretching or box breathing) during frustrating moments.",
+            "3. End your week with gratitude journaling to reinforce resilience and positive perspective."
+        ])
+    )
+    db.session.add(suggestion_34)
+    db.session.commit()
+
+
+    ## === Week 35 ===
+    journal_35 = Journal(
+        week_number=35,
+        year=2025,
+        user_id=user.id
+    )
+    db.session.add(journal_35)
+    db.session.commit()
+
+    entries_35 = [
+        JournalEntry(journal_id=journal_35.id, entry_date=date(2025, 8, 25), mood_tag="Focused", mood_score=8, notes="Strong start, clear priorities."),
+        JournalEntry(journal_id=journal_35.id, entry_date=date(2025, 8, 26), mood_tag="Overwhelmed", mood_score=5, notes="Too many tasks piled up."),
+        JournalEntry(journal_id=journal_35.id, entry_date=date(2025, 8, 27), mood_tag="Focused", mood_score=7, notes="Prioritized tasks, felt more in control."),
+        JournalEntry(journal_id=journal_35.id, entry_date=date(2025, 8, 28), mood_tag="Excited", mood_score=8, notes="Finished major milestones."),
+        JournalEntry(journal_id=journal_35.id, entry_date=date(2025, 8, 29), mood_tag="Calm", mood_score=7, notes="Handled tasks steadily."),
+        JournalEntry(journal_id=journal_35.id, entry_date=date(2025, 8, 30), mood_tag="Joyful", mood_score=9, notes="Enjoyed long weekend, relaxed outdoors."),
+        JournalEntry(journal_id=journal_35.id, entry_date=date(2025, 8, 31), mood_tag="Joyful", mood_score=9, notes="Went camping with family and friends, felt refreshed and happy.")
+    ]
+    db.session.add_all(entries_35)
+
+    suggestion_35 = Suggestion(
+        journal_id=journal_35.id,
+        summary="This week balanced motivation, pressure, and achievement. Despite midweek stress, you refocused and accomplished key milestones. Ending the week with a long weekend camping trip brought joy, connection, and renewal.",
+        selfcare_tips=json.dumps([
+            "1. Use nature breaks like camping or outdoor walks regularly to recharge and restore balance.",
+            "2. When feeling overwhelmed, lean on social connections—sharing time with friends or family can ease stress and boost mood.",
+            "3. Continue celebrating progress with gratitude and reflection, especially after combining hard work with meaningful rest."
+        ])
+    )
+    db.session.add(suggestion_35)
     db.session.commit()
 
     
