@@ -3,6 +3,9 @@
 
 This is a secure full-stack mood journaling application built with React (frontend), Flask (backend), and PostgreSQL (database). Users can register, log in, and manage their mood journals with full CRUD functionality. The backend offers robust APIs with authentication, secure access control, filtering, and analytical features such as word clouds and mood-tag categorization. It also integrates OpenAI to generate weekly mood summaries and personalized self-care suggestions.
 
+## Demo
+  https://youtu.be/4pfv7calp2c
+
 
 ## 🔐 Features
 - JWT Authentication for secure access.
